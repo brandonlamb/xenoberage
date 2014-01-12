@@ -1,0 +1,117 @@
+UPDATE JAN 2014
+
+THIS INFORMATION IS INACCURATE.
+
+I will be making an automatic install system for servers to use, to make it as easy as
+uploading the files onto the server, running install.php and everything else is taken
+care of. no server side editing should be required.
+Until then, please be patient!
+
+- END OF UPDATE
+
+BlackNova Traders
+
+REQUIREMENTS
+
+- PHP version 5.3 minimum is required. (For Smarty, crypt for login, and many other features)
+- MySQL version 5.5 is supported, we have not determined a required minimum.
+- Apache version 2.2.20+ is supported, we have not determined a required minimum.
+
+INSTALLATION
+
+1. Untar the distribution (be sure to untar the subdirectories):
+   tar xvf bnt-x.x.x.tar
+
+2. Open the file <www.your-host>/<install-dir>/setup_info.php in your browser. This
+   file will help you understand what settings you should use in your db_config.php file.
+
+3. Edit the db_config.php file to your own settings 
+   and manually update your cron file.
+
+   PLEASE make sure to edit your game_name to be something unique!
+
+   You need to set up a background task thats called every X minutes.
+   You can set this to any interval you want, but 5 or 6 minutes are good
+   standard values.
+   This task needs to call the web page scheduler.php passing the admin
+   password to it, eg by accessing:
+
+   http://localhost/blacknova/scheduler.php?swordfish=password
+   
+   On UNIX and Linux, you can achieve this by using cron to call lynx to access 
+   the pages at specified times.
+
+
+   A sample crontab follows:
+
+*/6 * * * * /usr/bin/lynx --dump http://localhost/blacknova/scheduler.php?swordfish=password > /dev/null
+
+   You may need to alter the URL to point to your exact domain name 
+   and path. You will also need to change the password to your admin password
+
+   To specify how fast-paced you want the game to be, you will need to
+   edit the file config.php and select how many minutes you want between
+   different events, eg turns or port regeneration.
+
+   ****NOTE**** this version now can do internal scheduling. It should be considered experimental.
+   To enable internal scheduling, set $sched_type = 1 in config.php
+   If you have access to cron, use the default cron scheduling as described above instead.
+
+4. Create the database:
+   mysqladmin -uuser -ppass create dbname
+
+5. Open the file <www.your-host>/<install-dir>/create_universe.php in
+   your browser.  You'll need to enter your admin password to access this
+   page.  Change the settings to suit the universe you'd like to create -
+   and go for it.
+
+6. Open the file <www.your-host>/<install-dir>/index.php in your browser
+   - you should now be able to log-in.
+
+7. chmod 000 setup_info.php - it contains information that might be a security risk.
+
+8. If you'd like additional security, we have included .htaccess files for some protection.
+   Some systems do not ship with .htaccess enabled. You'll need to edit your Apache config 
+   (either httpd.conf or the correct file for your host/directory), and set it to AllowOverrides Limits
+   (it is often set to AllowOverrides None). Don't forget to reload Apache's config if you make this change.
+
+9. Hopefully - it works now. :)
+
+
+Trouble Shooting:
+If, when you log in, you are presented with another screen telling you to log in,
+chances are that you have incorrectly set up the $gamedomain and $gamepath variables in
+db_config.php. Test using setup_info.php to find the correct values.
+
+Join the blacknova forums to stay informed of updates, patches 
+and new releases. 
+
+BUG REPORTS AND SUPPORT
+
+Bug reports and patches should be submitted on the BlackNova Traders
+SourceForge page:
+
+http://www.sourceforge.net/projects/blacknova
+
+SUPPORT
+
+Support should be requested on the main Blacknova Traders forums:
+
+http://forums.blacknova.net
+
+Regards,
+
+The Blacknova development team.
+
+
+------------------------------
+ADDITIONAL FEDORA/REDHAT NOTES
+
+For Fedora/Redhat to be able to sendmail from Apache, you'll need to set:
+
+setsebool -P httpd_can_sendmail=1
+
+To allow the web server to talk to the MySQL server. Issue this command: 
+
+setsebool -P httpd_can_network_connect_db 1 
+

@@ -1,0 +1,33 @@
+Hello,
+
+In some areas of the game, we have used the amazing work that others have done to make our game better.
+
+For the index header committed on June 23, 2012 (header1.png), we used the Nasa image 581910main_PIA14293_full.jpg, which is
+available at: http://www.nasa.gov/images/content/581910main_PIA14293_full.jpg
+
+For the second (optional) index header, also committed on June 23, 2012 (header2.png), we used the 
+Nasa image 227982main_print_full.jpg, which is available at http://www.nasa.gov/images/content/227982main_print_full.jpg
+
+For the index page buttons with mouse over, via CSS, we used the "Shiny button set" created by James Kyle (https://twitter.com/thejameskyle), from
+the CSSDeck tutorial at: http://cssdeck.com/item/182/shiny-semi-transparent-colored-buttons (This is licensed under 
+the Creative Commons Attributions license, as noted at http://cssdeck.com/about#tos )
+
+For the flags in images/flags, we used the Free Country Flags by Gang of the Coconuts, from 
+http://www.free-country-flags.com/flag_pack.php?id=1 , which is licensed under a Creative Commons 
+Attribution-ShareAlike 3.0 Unported License.
+
+We are extremely greatful for these resources.
+
+- Update January 2014
+
+This will be moved to a full web page, however for the time being:-
+
+In Game Planet images are all taken from NASA images, http://www.nasa.gov/.
+
+All other images have been contributed by members of the Xenobe Rage Team. Credits for each image will be placed on the web page in due course.
+
+jQuery UI CSS Framework 1.8.17, Copyright 2011, http://jqueryui.com/about.
+jQuery UI 1.8.16, Copyright 2011, http://jqueryui.com/about.
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+

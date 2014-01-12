@@ -1,0 +1,4 @@
+Switch from text to varchar(2000). Text gets inlined and slows DB performance, so we should avoid it if we can. The longest lang variable today is 438 and with a large multi-byte (4) language like Chinese, that could be 1752, so round up a bit to be careful.
+--This line, and those below, will be ignored--
+
+M    schema.php

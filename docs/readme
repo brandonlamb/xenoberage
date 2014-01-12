@@ -1,0 +1,58 @@
+BlackNova Traders - Readme
+
+BlackNova Traders is a web-based, multi-player space exploration game inspired by the popular BBS game of TradeWars. It is coded using PHP, SQL, and 
+Javascript.
+
+Version 0.55 / http://www.blacknova.net
+
+Copyright (C) 2000 Ron Harwood <harwoodr@blacknova.net>, and the BNT Development team
+
+This program is free software; you can redistribute it and/or modify it under 
+the terms of the GNU Affero Public License v3 (see license or http://www.gnu.org/licenses/agpl-3.0.html)
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero Public License for more details.
+
+Requirements: 
+    PHP5.2+ (tested with 5.3.10, 5.3.14, 5.4.1-1)
+    MySQL (tested with 5.1.60, 5.5.23, 5.5.24)
+    Apache >= 2.2 (tested with 2.2.20, 2.2.22)
+    a web-browser (Internet Explorer 8 or above - recommended 9, or recent versions of Firefox, Opera, Safari, or Chrome)
+
+    IIS is not supported, and BNT will not work correctly on it in future versions.
+
+Download:
+    You can get the newest version at http://blacknova.net
+
+Credits:
+    This work is based on the old BBS games that went by many names
+    (Tradewars, Galactic Warzone, Yankee Trader, Ultimate Universe, and
+    many other names like this) but shares no code with them.  It is
+    written 100% in PHP/HTML/SQL.  
+
+    Please refer to the docs/devcredit file to see
+    the current list of developers.
+
+Installation:
+    Please see the docs/install file.
+
+Upgrades:
+    As is typical with releases, we highly recommend a fresh install. Upgrades are not supported at this time.
+
+ChangeLog:
+    Please see the docs/changes file.    
+
+Documentation:
+    See the docs/ directory.
+
+Updates:
+    Join the blacknova forums (http://forums.blacknova.net) to stay informed about updates, patches 
+    and new releases.
+
+Enjoy,
+
+Ron Harwood <harwoodr@blacknova.net>
+
+PS:  I would appreciate both an e-mail (if you are running BlackNova
+Traders on your site) and a link back to the main blacknova site http://blacknova.net
