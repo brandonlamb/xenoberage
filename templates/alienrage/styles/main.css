@@ -1,0 +1,159 @@
+body {background-color:#000; color:#c0c0c0; font-family: Verdana, "DejaVu Sans", sans-serif; font-size: 85%; }
+a:link { color: #0F9; text-decoration:none;}
+a:hover {color: #F00;}
+a:visited { color: #0F9;}
+a:visited:hover { color: #F00;}
+a:active { color: #0F9;}
+a.new_link { color:#0f0; font-size: 8pt; font-weight:bold}
+a.new_link:hover { color:#36f; font-size: 8pt; font-weight:bold}
+a.mnu { color:white; font-size: 8pt; font-weight:bold; text-decoration:none}
+a.mnu:hover { color: #36f; font-size: 8pt; font-weight:bold; text-decoration:none}
+img.mnu { border:transparent 2px dashed; padding:4px}
+img.mnu:hover { border:#f00 2px dashed; padding:4px}
+div.mnu { color:white; font-size: 8pt; font-weight:bold; text-decoration:none}
+span.mnu { color:white; font-size: 8pt; font-weight:bold; text-decoration:none}
+a.dis { color:silver; font-size: 8pt; font-weight:bold; text-decoration:none}
+a.dis:hover { color:#36f; font-size: 8pt; font-weight:bold; text-decoration:none}
+
+table.dis { color:silver; font-size: 8pt; font-weight:bold; text-decoration:none}
+table.dis:hover { color:#36f; font-size: 8pt; font-weight:bold; text-decoration:none}
+
+.headlines:hover { color:#36f; text-decoration:none}
+.headlines { color:white; font-size:8pt; font-weight:bold; text-decoration:none}
+
+
+dl.twocolumn-form dt { float:left; height:2em; text-align:right; width:45%; padding:3px}
+dl.twocolumn-form dd { float:left; height:2em; text-align:left; width:45%; padding:3px}
+dl.twocolumn-form input {width:200px}
+.map { background-color:#0000ff;  border:#555555 1px solid; color:#fff; float:left; height:20px; padding:0px; position:relative; width:20px;}
+.map:hover { border:#fff 1px solid}
+.none { background-image:url('../../../images/space.png')}
+.un { background-image:url('../../../images/uspace.png'); opacity:0.5}
+input.term { background-color: #000; border-color:#0f0; color: #0f0; font-size:0.8em}
+select.term { background-color: #000; border-color:#0f0; color: #0f0; font-size:0.8em}
+center.term { background-color: #000; border-color:#0f0; color: #0f0; font-size:0.8em}
+pre.term { background-color: #000; border-color:#0f0; color: #0f0; font-size:0.8em}
+.rank_dev_text { color:#f00; font-size:0.8em; text-decoration:none; vertical-align:middle}
+img.index { border:0; display:block; height:150px; margin-left:auto; margin-right:auto; width:100%}
+a.index { border:0; display:block; margin-left:auto; margin-right:auto; text-align:center}
+
+body.igb {  color:#f0f0f0; font-family: Courier New, Courier, monospace; font-size:0.8em}
+div.igb { color:#0f0}
+/*
+Log Page
+*/
+body.log { background-color:#000; background-image: url('../../../images/bgoutspace1.png'); color:#c0c0c0}
+body.log.a:link { color: #040658}
+body.log.a:visited { color: #040658}
+body.log.a:active { color: #040658}
+
+
+
+
+body.options tr:nth-child(even) { background-color:#300030}
+body.options tr:nth-child(odd) { background-color:#400040}
+body.options th { background-color:#500050; text-align:left}
+body.options table { border:0; border-spacing:0px; color:#fff; padding:2px}
+body.index { font-size: 75%; text-align: center}
+/*input.shine {visibility: hidden; opacity:0}*/
+.button:hover .shine { left: 24px}
+.button:active .shine { opacity: 0}
+.button.red { background: #723131}
+.button.orange { background: #624529}
+.button.brown { background: #663300}
+.button.blue { background: #3a617e}
+.button.green { background: #477343}
+.button.purple { background: #4b3f5e}
+.button.gray { background: #555}
+div.index-header { border:2px solid white; box-shadow: 3px 3px 6px #000; height: 150px; left:0px; margin:2px; top: 0px; width:99%}
+div.index-header-text { color:white; font-size:4em; height:auto; left:30%; line-height:4em; position:absolute; text-shadow: black 2px 2px 0.1em; top:1%; width:auto}
+div.index-welcome { font-size:1.2em; text-align:center; color:#FFF;}
+p.cookie-warning { font-size:0.7em}
+div.index-flags { height:auto; left:80%; position:absolute; top:3%; width:auto}
+h1.index-h1 { font-size:1em; font-weight: normal; margin: 0; padding: 0}
+div.navigation { display:table; margin: 0 auto}
+ul.navigation { list-style:none}
+ul.navigation li { display:inline}
+body.index img { border:0}
+body.index a { outline:none; text-decoration:none}
+div.index-flags img { height:16px}
+.button {
+    background: #434343;
+    border: 1px solid #242424;
+    color: #FFF;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1em;
+    letter-spacing: 1px;
+    margin: 0px 5px 5px 0px;
+    min-height: 1em;
+    padding: 12px 24px;
+    opacity: 0.9;
+    text-shadow: 0px 1px 2px rgba(0,0,0,0.9);
+    text-transform: uppercase;
+   
+    -webkit-border-radius: 4px;
+     -khtml-border-radius: 4px;
+       -moz-border-radius: 4px;
+         -o-border-radius: 4px;
+            border-radius: 4px;
+    -webkit-box-shadow: rgba(255,255,255,0.25) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 1px 0px, inset rgba(0,0,0,0.25) 0px 0px 0px, inset rgba(255,255,255,0.03) 0px 20px 0px, inset rgba(0,0,0,0.15) 0px -20px 20px, inset rgba(255,255,255,0.05) 0px 20px 20px;
+     -khtml-box-shadow: rgba(255,255,255,0.25) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 1px 0px, inset rgba(0,0,0,0.25) 0px 0px 0px, inset rgba(255,255,255,0.03) 0px 20px 0px, inset rgba(0,0,0,0.15) 0px -20px 20px, inset rgba(255,255,255,0.05) 0px 20px 20px;
+       -moz-box-shadow: rgba(255,255,255,0.25) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 1px 0px, inset rgba(0,0,0,0.25) 0px 0px 0px, inset rgba(255,255,255,0.03) 0px 20px 0px, inset rgba(0,0,0,0.15) 0px -20px 20px, inset rgba(255,255,255,0.05) 0px 20px 20px;
+         -o-box-shadow: rgba(255,255,255,0.25) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 1px 0px, inset rgba(0,0,0,0.25) 0px 0px 0px, inset rgba(255,255,255,0.03) 0px 20px 0px, inset rgba(0,0,0,0.15) 0px -20px 20px, inset rgba(255,255,255,0.05) 0px 20px 20px;
+            box-shadow: rgba(255,255,255,0.25) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 1px 0px, inset rgba(0,0,0,0.25) 0px 0px 0px, inset rgba(255,255,255,0.03) 0px 20px 0px, inset rgba(0,0,0,0.15) 0px -20px 20px, inset rgba(255,255,255,0.05) 0px 20px 20px;
+    -webkit-transition: all 0.1s linear;
+     -khtml-transition: all 0.1s linear;
+       -moz-transition: all 0.1s linear;
+         -o-transition: all 0.1s linear;
+            transition: all 0.1s linear;
+}
+.button:hover {
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 5px, inset rgba(255,255,255,0.25) 0px 1px 0px, inset rgba(0,0,0,0.25) 0px 0px 0px, inset rgba(255,255,255,0.03) 0px 20px 0px, inset rgba(0,0,0,0.15) 0px -20px 20px, inset rgba(255,255,255,0.05) 0px 20px 20px;
+     -khtml-box-shadow: rgba(0,0,0,0.5) 0px 2px 5px, inset rgba(255,255,255,0.25) 0px 1px 0px, inset rgba(0,0,0,0.25) 0px 0px 0px, inset rgba(255,255,255,0.03) 0px 20px 0px, inset rgba(0,0,0,0.15) 0px -20px 20px, inset rgba(255,255,255,0.05) 0px 20px 20px;
+       -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 5px, inset rgba(255,255,255,0.25) 0px 1px 0px, inset rgba(0,0,0,0.25) 0px 0px 0px, inset rgba(255,255,255,0.03) 0px 20px 0px, inset rgba(0,0,0,0.15) 0px -20px 20px, inset rgba(255,255,255,0.05) 0px 20px 20px;
+         -o-box-shadow: rgba(0,0,0,0.5) 0px 2px 5px, inset rgba(255,255,255,0.25) 0px 1px 0px, inset rgba(0,0,0,0.25) 0px 0px 0px, inset rgba(255,255,255,0.03) 0px 20px 0px, inset rgba(0,0,0,0.15) 0px -20px 20px, inset rgba(255,255,255,0.05) 0px 20px 20px;
+            box-shadow: rgba(0,0,0,0.5) 0px 2px 5px, inset rgba(255,255,255,0.25) 0px 1px 0px, inset rgba(0,0,0,0.25) 0px 0px 0px, inset rgba(255,255,255,0.03) 0px 20px 0px, inset rgba(0,0,0,0.15) 0px -20px 20px, inset rgba(255,255,255,0.05) 0px 20px 20px;
+}
+.button:active {
+    -webkit-box-shadow: rgba(255,255,255,0.25) 0px 1px 0px,inset rgba(255,255,255,0) 0px 1px 0px, inset rgba(0,0,0,0.5) 0px 0px 5px, inset rgba(255,255,255,0.03) 0px 20px 0px, inset rgba(0,0,0,0.15) 0px -20px 20px, inset rgba(255,255,255,0.05) 0px 20px 20px;
+     -khtml-box-shadow: rgba(255,255,255,0.25) 0px 1px 0px,inset rgba(255,255,255,0) 0px 1px 0px, inset rgba(0,0,0,0.5) 0px 0px 5px, inset rgba(255,255,255,0.03) 0px 20px 0px, inset rgba(0,0,0,0.15) 0px -20px 20px, inset rgba(255,255,255,0.05) 0px 20px 20px;
+       -moz-box-shadow: rgba(255,255,255,0.25) 0px 1px 0px, inset rgba(255,255,255,0) 0px 1px 0px, inset rgba(0,0,0,0.5) 0px 0px 5px, inset rgba(255,255,255,0.03) 0px 20px 0px, inset rgba(0,0,0,0.15) 0px -20px 20px, inset rgba(255,255,255,0.05) 0px 20px 20px;
+         -o-box-shadow: rgba(255,255,255,0.25) 0px 1px 0px, inset rgba(255,255,255,0) 0px 1px 0px, inset rgba(0,0,0,0.5) 0px 0px 5px, inset rgba(255,255,255,0.03) 0px 20px 0px, inset rgba(0,0,0,0.15) 0px -20px 20px, inset rgba(255,255,255,0.05) 0px 20px 20px;
+            box-shadow: rgba(255,255,255,0.25) 0px 1px 0px, inset rgba(255,255,255,0) 0px 1px 0px, inset rgba(0,0,0,0.5) 0px 0px 5px, inset rgba(255,255,255,0.03) 0px 20px 0px, inset rgba(0,0,0,0.15) 0px -20px 20px, inset rgba(255,255,255,0.05) 0px 20px 20px;
+}
+.shine {
+    background: -moz-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,0)), color-stop(50%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0)));
+    background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%);
+    background: -o-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%);
+    background: -ms-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%);
+    background: linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%);
+    display: block;
+    height: 1px;
+    left: -24px;
+    padding: 0px 12px;
+    position: relative;
+    top: -12px;
+    -webkit-box-shadow: rgba(255,255,255,0.2) 0px 1px 5px;
+     -khtml-box-shadow: rgba(255,255,255,0.2) 0px 1px 5px;
+       -moz-box-shadow: rgba(255,255,255,0.2) 0px 1px 5px;
+         -o-box-shadow: rgba(255,255,255,0.2) 0px 1px 5px;
+            box-shadow: rgba(255,255,255,0.2) 0px 1px 5px;
+    -webkit-transition: all 0.3s ease-in-out;
+     -khtml-transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+}
+
+body.faq { color:#c0c0c0; font-size:14px; height:14px;}
+body.faq a { color:#ffffff; text-decoration: none}
+body.faq td.firstbar { background-color:#500050; color:#eeeeee; font-size:36px; height:36px; text-align:center}
+body.faq td.secondbar { background-color:#400040; color:#eeeeee; font-size:14px; height:14px; text-align:center}
+body.faq td.header { background-color:#400040; color:#eeeeee; font-size:18px; font-weight:bold; height:18px; width:25%; text-align:center}
+body.faq td.subheader { background-color:#400040; color:#eeeeee; font-size:16px; font-weight:bold; height:16px; width:90%}
+body.faq td.spacer { background-color:#300030; width:5%}
+body.faq table { border:0px; width:100%; border-spacing:0px}
+body.faq table.navbar { border-spacing:0px}
+body.faq td.lists { text-align:center; width:20%}
