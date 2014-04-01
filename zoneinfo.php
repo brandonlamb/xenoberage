@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -20,8 +20,11 @@
 include "config/config.php";
 updatecookie ();
 
+// New database driven language entries
+load_languages($db, $lang, array('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'), $langvars, $db_logging);
+
 $body_class = 'zoneinfo';
-$title = "Zone Information";
+$title = $l_zi_title;
 include "header.php";
 ?>
 <div class="tablecell content both-border">
@@ -34,7 +37,7 @@ if (checklogin () )
 
 bigtitle ();
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id='$user_ship_id'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
@@ -76,14 +79,14 @@ else
     {
         if ($row['corp_zone'] == 'N')
         {
-            $result = $db->Execute("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE ship_id=".$row['owner']."");
+            $result = $db->Execute("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE ship_id=$row[owner]");
             db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
             $ownerinfo = $result->fields;
             $ownername = $ownerinfo['character_name'];
         }
         else
         {
-            $result = $db->Execute("SELECT team_name, creator, id FROM {$db->prefix}teams WHERE id=".$row['owner']."");
+            $result = $db->Execute("SELECT team_name, creator, id FROM {$db->prefix}teams WHERE id=$row[owner]");
             db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
             $ownerinfo = $result->fields;
             $ownername = $ownerinfo['team_name'];
@@ -175,7 +178,7 @@ else
 
     if (($row['corp_zone'] == 'N' && $row['owner'] == $playerinfo['ship_id']) || ($row['corp_zone'] == 'Y' && $row['owner'] == $playerinfo['team'] && $playerinfo['ship_id'] == $ownerinfo['creator']))
     {
-        echo "<center>You are in control of this zone. <a href=zoneedit.php?zone=$zone>Click Me</a> to change your sector laws.</center><p>";
+        echo "<center>$l_zi_control. <a href=zoneedit.php?zone=$zone>$l_clickme</a> $l_zi_tochange</center><p>";
     }
 	/*
 	Build table
@@ -184,15 +187,15 @@ else
     <div class="general-table-container">
     <?
     echo "<table><tbody>" .
-         "<tr><td colspan=\"2\">".$row['zone_name']."</td></tr>" .
-         "<tr><td class=\"zone-info-headers\">Zone Owner</td><td class=\"value\">".$ownername."</td></tr>" .
-         "<tr><td class=\"zone-info-headers\">Space Beacons</td><td>".$beacon."</td></tr>" .
-         "<tr><td class=\"zone-info-headers\">Attacking</td><td>".$attack."</td></tr>" .
-         "<tr><td class=\"zone-info-headers\">Sector Defences</td><td>".$defense."</td></tr>" .
-         "<tr><td class=\"zone-info-headers\">Warp Editors</td><td>".$warpedit."</td></tr>" .
-         "<tr><td class=\"zone-info-headers\">Planets</td><td>".$planet."</td></tr>" .
-         "<tr><td class=\"zone-info-headers\">Port Trading</td><td>".$trade."</td></tr>" .
-         "<tr><td class=\"zone-info-headers\">Maximum average tech level allowed</td><td>".$hull."</td></tr>" .
+         "<tr><td colspan=\"2\">$row[zone_name]</td></tr>" .
+         "<tr><td class=\"zone-info-headers\">&nbsp;$l_zi_owner</td><td class=\"value\">$ownername&nbsp;</td></tr>" .
+         "<tr><td class=\"zone-info-headers\">&nbsp;$l_beacons</td><td>$beacon&nbsp;</td></tr>" .
+         "<tr><td class=\"zone-info-headers\">&nbsp;$l_att_att</td><td>$attack&nbsp;</td></tr>" .
+         "<tr><td class=\"zone-info-headers\">&nbsp;$l_md_title</td><td>$defense&nbsp;</td></tr>" .
+         "<tr><td class=\"zone-info-headers\">&nbsp;$l_warpedit</td><td>$warpedit&nbsp;</td></tr>" .
+         "<tr><td class=\"zone-info-headers\">&nbsp;$l_planets</td><td>$planet&nbsp;</td></tr>" .
+         "<tr><td class=\"zone-info-headers\">&nbsp;$l_title_port</td><td>$trade&nbsp;</td></tr>" .
+         "<tr><td class=\"zone-info-headers\">&nbsp;$l_zi_maxhull</td><td>$hull&nbsp;</td></tr>" .
          "</tbody></table></div>";
 }
 echo "<br><br>";

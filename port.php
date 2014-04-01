@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -39,7 +39,7 @@ if (checklogin () )
 <div class="tablecell content both-border">
 	<div class="pad">
 <?
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id='$user_ship_id'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
@@ -47,28 +47,28 @@ $playerinfo = $res->fields;
 
 if ($playerinfo['ship_ore'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=0 WHERE email='$username'");
+    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=0 WHERE ship_id='$user_ship_id'");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $playerinfo['ship_ore'] = 0;
 }
 
 if ($playerinfo['ship_organics'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_organics=0 WHERE email='$username'");
+    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_organics=0 WHERE ship_id='$user_ship_id'");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $playerinfo['ship_organics'] = 0;
 }
 
 if ($playerinfo['ship_energy'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_energy=0 WHERE email='$username'");
+    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_energy=0 WHERE ship_id='$user_ship_id'");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $playerinfo['ship_energy'] = 0;
 }
 
 if ($playerinfo['ship_goods'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_goods=0 WHERE email='$username'");
+    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_goods=0 WHERE ship_id='$user_ship_id'");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $playerinfo['ship_goods'] = 0;
 }

@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -15,22 +15,19 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/is_same_team.php
+// File: sched_degrade.php
 
-if (preg_match("/is_same_team.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
-}
-
-function is_same_team ($attackerTeam = null, $attackieTeam = null)
+if (preg_match("/sched_degrade.php/i", $_SERVER['PHP_SELF']))
 {
-        if ( ($attackerTeam != $attackieTeam) || ($attackerTeam == 0 || $attackieTeam == 0) )
-        {
-                return (boolean) false;
-        }
-        else
-        {
-                return (boolean) true;
-        }
+    echo "You can not access this file directly!";
+    die();
 }
+include "config/config.php";
+$manage_log = new manage_log();
+
+echo "<strong>Updating Empire Stats</strong><br/>";
+echo "Adding research, parts, food, energy, ores.<br/>";
+$sql_manager = new manage_table();
+echo $sql_manager->schedule_empire();
+
 ?>

@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -125,15 +125,20 @@ if (!isset($userID))
 
 if($userID != '')
 {
+
 	$the_cookie_data = unserialize($userID);
 	$username = $the_cookie_data['username'];
 	$password = $the_cookie_data['password'];
 	$user_ship_id = $the_cookie_data['user_id'];
+	$user_cookie_ip = $the_cookie_data['user_ip'];
+	$user_cookie_host = $the_cookie_data['user_host'];
+	$user_cookie_agent = $the_cookie_data['user_agent'];
+
 }
 
 $lang = $default_lang;
-
-if (empty($username))  // If the user has not logged in
+/*
+if (empty($user_ship_id))  // If the user has not logged in
 {
     if (array_key_exists('lang', $_GET)) // And the user has chosen a language on index.php
     {
@@ -142,7 +147,7 @@ if (empty($username))  // If the user has not logged in
 }
 else // The user has logged in, so use his preference from the database
 {
-    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id='".$user_ship_id."'");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     if ($res)
     {
@@ -151,7 +156,7 @@ else // The user has logged in, so use his preference from the database
 
     $playerinfo = $res->fields;
     $lang = $playerinfo['lang'];
-}
+}*/
 
 $avail_lang[0]['file'] = 'english';
 $avail_lang[0]['name'] = 'English';

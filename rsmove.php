@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -34,7 +34,7 @@ if (checklogin())
     die();
 }
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id='$user_ship_id'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
@@ -86,6 +86,7 @@ if (!isset($destination))
 }
 elseif (($destination < $sector_max && empty($engage)) || ($destination < $sector_max && $triptime > 100 && $engage == 1))
 {
+
     if ($playerinfo['dev_fuelscoop'] == "Y")
     {
         $energyscooped = $distance * 100;
@@ -114,7 +115,7 @@ elseif (($destination < $sector_max && empty($engage)) || ($destination < $secto
     $l_rs_movetime=str_replace("[triptime]",NUMBER($triptime),$l_rs_movetime);
     $l_rs_energy=str_replace("[energy]",NUMBER($energyscooped),$l_rs_energy);
     echo "With your engines it will cost you ".NUMBER($triptime)." turns, and you will collect ".NUMBER($energyscooped)." energy<br/><br/>";
-
+	
     if ($triptime > $playerinfo['turns'])
     {
         echo "You dont have enough turns to complete the requested move";
@@ -146,6 +147,7 @@ elseif (($destination < $sector_max && empty($engage)) || ($destination < $secto
 	}
     else
     {
+
         $l_rs_engage_link = "<a href=rsmove.php?engage=2&destination=$destination>" . $l_rs_engage_link . "</A>";
         $l_rs_engage = str_replace("[turns]", NUMBER($playerinfo['turns']), $l_rs_engage);
         $l_rs_engage = str_replace("[engage]", $l_rs_engage_link, $l_rs_engage);

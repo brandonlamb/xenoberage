@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -24,6 +24,7 @@ if (preg_match("/getLanguageVars.php/i", $_SERVER['PHP_SELF'])) {
 
 function load_languages ($db = NULL, $language = NULL, $categories = NULL, &$langvars = NULL)
 {
+
     // Check if all supplied args are valid, if not return false.
     if (is_null($db) || is_null($language) || !is_array($categories))
     {

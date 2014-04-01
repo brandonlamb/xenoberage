@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -31,7 +31,7 @@ include "header.php";
 <?
 bigtitle();
 
-$result = $db->Execute ("SELECT character_name, email, password FROM {$db->prefix}ships WHERE email=? LIMIT 1;", array($mail));
+$result = $db->Execute ("SELECT character_name, email, password FROM {$db->prefix}ships WHERE ship_id=? LIMIT 1;", array($mail));
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 
 if (!$result->EOF)
@@ -59,7 +59,7 @@ if (!$result->EOF)
 }
 else
 {
-    $l_mail_noplayer=str_replace("[here]", "<a href='new.php'>" . $l_here . "</a>", $l_mail_noplayer);
+    $l_mail_noplayer=str_replace("[here]", "<a href='new_fb.php'>" . $l_here . "</a>", $l_mail_noplayer);
     echo "<div style='color:#FFF; width:400px; text-align:left; font-size:12px; padding:6px;'>{$l_mail_noplayer}</div>\n";
 
     echo "<br>\n";

@@ -70,6 +70,7 @@ class manage_player {
 	*/
 	public function generate_score($user_id)
 	{
+		
 		$sql_manager = new manage_table();
 		global $db_prefix;
 		global $db;

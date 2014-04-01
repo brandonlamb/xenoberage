@@ -35,7 +35,7 @@ if (checklogin () )
 <div class="tablecell content both-border">
 	<div class="pad">
 <?
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id='$user_ship_id'");
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
 
@@ -697,25 +697,25 @@ function IGB_deposit2()
   }
   if ($amount > $tmpcredits)
     IGB_error("<center>Error You cannot deposit that much into your bank,<br> (Max Credits Reached)</center>", "igb.php?command=deposit");
+	$amount2 = $amount;
 	$fee = ($amount/100)*10;
 	$amount = $amount - $fee;
-  $account['balance'] += $amount;
-  $playerinfo['credits'] -= $amount;
-
+  	$player_igb_balance = $account['balance'] + $amount;
+  	$player_ship_balance = $playerinfo['credits'] - $amount2;
   echo "<tr><td colspan=2 align=center valign=top>$l_igb_operationsuccessful<br>---------------------------------</td></tr>" .
        "<tr valign=top><td colspan=2 align=center>" . NUMBER($amount) ." $l_igb_creditstoyou</td></tr>" .
 	   "<tr valign=top><td colspan=2 align=center>" . NUMBER($fee) ." Credit Processing Fee (10%) Deducted.</td></tr>" .
        "<tr><td colspan=2 align=center>$l_igb_accounts<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
        "<td>$l_igb_shipaccount :<br>$l_igb_igbaccount :</td>" .
-       "<td align=right>" . NUMBER($playerinfo['credits']) . " C<br>" . NUMBER($account['balance']) . " C</tr>" .
+       "<td align=right>" . NUMBER($player_ship_balance) . " C<br>" . NUMBER($player_igb_balance) . " C</tr>" .
        "<tr valign=bottom>" .
        "<td><a href='igb.php?command=login'>$l_igb_back</a></td><td align=right>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 
-  $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance=balance+$amount WHERE ship_id=$playerinfo[ship_id]");
+  $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance=".$player_igb_balance." WHERE ship_id=$playerinfo[ship_id]");
   db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
-  $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits-$amount WHERE ship_id=$playerinfo[ship_id]");
+  $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=".$player_ship_balance." WHERE ship_id=$playerinfo[ship_id]");
   db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 }
 
@@ -737,27 +737,26 @@ function IGB_withdraw2()
 
   if ($amount > $account['balance'])
     IGB_error($l_igb_notenoughcredits, "igb.php?command=withdraw");
-	
+	$amount2 = $amount;
 	$fee = ($amount/100)*10;
 	/*New amount minus fee*/
 	$amount = $amount - $fee;
-  $account['balance'] -= $amount;
-  $playerinfo['credits'] += $amount;
-
-  echo "<tr><td colspan=2 align=center valign=top>$l_igb_operationsuccessful<br>---------------------------------</td></tr>" .
+  	$player_igb_balance = $account['balance'] - $amount2;
+  	$player_ship_balance = $playerinfo['credits'] + $amount;
+ 	echo "<tr><td colspan=2 align=center valign=top>$l_igb_operationsuccessful<br>---------------------------------</td></tr>" .
        "<tr valign=top><td colspan=2 align=center>" . NUMBER($amount) ." Credits have been transfered to your ship account.</td></tr>" .
 	   "<tr valign=top><td colspan=2 align=center>" . NUMBER($fee) ." Credit Processing Fee (10%) Deducted.</td></tr>" .
        "<tr><td colspan=2 align=center>$l_igb_accounts<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
        "<td>Ship Account :<br>$l_igb_igbaccount :</td>" .
-       "<td align=right>" . NUMBER($playerinfo['credits']) . " C<br>" . NUMBER($account['balance']) . " C</tr>" .
+       "<td align=right>" . NUMBER($player_ship_balance) . " C<br/>" . NUMBER($player_igb_balance) . " C</tr>" .
        "<tr valign=bottom>" .
        "<td><a href='igb.php?command=login'>$l_igb_back</a></td><td align=right>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 
-  $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance=balance-$amount WHERE ship_id=$playerinfo[ship_id]");
+  $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance=".$player_igb_balance." WHERE ship_id=$playerinfo[ship_id]");
   db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
-  $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits+$amount WHERE ship_id=$playerinfo[ship_id]");
+  $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=".$player_ship_balance." WHERE ship_id=$playerinfo[ship_id]");
   db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 }
 

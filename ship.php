@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -20,10 +20,7 @@
 include "config/config.php";
 updatecookie();
 
-// New database driven language entries
-load_languages($db, $lang, array('ship', 'planet', 'main', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
-
-include_once "includes/is_same_team.php";
+$sql_manager = new manage_table();
 
 $title = $l_ship_title;
 include "header.php";
@@ -36,35 +33,36 @@ if (checklogin())
     die();
 }
 
-$res = $db->Execute("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE email='$username'");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
-$playerinfo = $res->fields;
-$res2 = $db->Execute("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE ship_id=$ship_id");
-db_op_result ($db, $res2, __LINE__, __FILE__, $db_logging);
-$othership = $res2->fields;
+$playerinfo = $sql_manager->playerinfo($user_ship_id,""); //Your Ship
+$othership = $sql_manager->playerinfo($ship_id,""); //Target Ship
 
 bigtitle();
 
 if ($othership['sector'] != $playerinfo['sector'])
 {
-    echo "$l_ship_the <font color=white>" . $othership['ship_name'] . "</font> $l_ship_nolonger " . $playerinfo['sector'] . "<br>";
+    echo "The <font color='#FFFFFF'>" . $othership['ship_name'] . "</font> is no longer in sector " . $playerinfo['sector'] . "<br/>";
 }
 else
 {
 	$_SESSION['ship_selected'] = $ship_id;
-    echo "$l_ship_youc <font color=white>" . $othership['ship_name'] . "</font>, $l_ship_owned <font color=white>" . $othership['character_name'] . "</font>.<br><br>";
-    echo "$l_ship_perform<br><br>";
-    echo "<a href=scan.php?ship_id=$ship_id>$l_planet_scn_link</a><br>";
+    echo "You see the <font color=white>" . $othership['ship_name'] . "</font>, owned by <font color=white>" . $othership['character_name'] . "</font>.<br/><br/>";
+    echo "You can perform the following actions:<br/><br/>";
+    echo "<a href=scan.php?ship_id=$ship_id>Scan</a><br/>";
+	if($sql_manager->team_id($ship_id) == 0 ) /*You are not part of any team*/
+	{
+		echo "<a href=attack.php?ship_id=".$ship_id.">Attack</a><br/>";
+	}
+	else if ($sql_manager->team_id($ship_id) != $sql_manager->team_id($user_ship_id)) /*your both not members of the same team*/
+	{
+		echo "<a href=attack.php?ship_id=".$ship_id.">Attack</a><br/>";
+	}
+	
+	echo "<a href=hack.php>Hack</a><br/>";
 
-    if ( !is_same_team($playerinfo['team'], $othership['team']) )
-    {
-        echo "<a href=attack.php?ship_id=$ship_id>$l_planet_att_link</a><br>";
-    }
-
-    echo "<a href=mailto.php?to=$ship_id>$l_send_msg</a><br>";
+    echo "<a href=mailto.php?to=$ship_id>Send Message</a><br/>";
 }
 
-echo "<br>";
+echo "<br/>";
 TEXT_GOTOMAIN();
 ?>
 </div></div>

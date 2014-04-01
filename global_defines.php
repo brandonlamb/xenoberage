@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -26,11 +26,11 @@ if (preg_match("/global_defines.php/i", $_SERVER['PHP_SELF'])) {
 
 define('LOG_LOGIN', 1);
 define('LOG_LOGOUT', 2);
-define('LOG_ATTACK_OUTMAN', 3);           //sent to target when better engines --
-define('LOG_ATTACK_OUTSCAN', 4);          //sent to target when better cloak --
-define('LOG_ATTACK_EWD', 5);              //sent to target when EWD engaged --
-define('LOG_ATTACK_EWDFAIL', 6);          //sent to target when EWD failed --
-define('LOG_ATTACK_LOSE', 7);             //sent to target when he lost --
+define('LOG_ATTACK_OUTMAN', 3);           //sent to target when better engines
+define('LOG_ATTACK_OUTSCAN', 4);          //sent to target when better cloak
+define('LOG_ATTACK_EWD', 5);              //sent to target when EWD engaged
+define('LOG_ATTACK_EWDFAIL', 6);          //sent to target when EWD failed
+define('LOG_ATTACK_LOSE', 7);             //sent to target when he lost
 define('LOG_ATTACKED_WIN', 8);            //sent to target when he won
 define('LOG_TOLL_PAID', 9);               //sent when paid a toll
 define('LOG_HIT_MINES', 10);              //sent when hit mines

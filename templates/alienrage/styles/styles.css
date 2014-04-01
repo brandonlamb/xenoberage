@@ -287,6 +287,24 @@ color: #FFF;
 Xenobe Rage NEW STYLE
 
 */
+.ar-player-empire-header {
+	font-size:10px !important;
+	color:#CCC;
+	padding:2px;
+	text-align:left;
+}
+.ar-player-empire-splitter {
+	font-weight:bold;
+	color:#333;
+	font-size:12px !important;
+}
+.ar-user-empire {
+	color:#666;
+	font-weight:bold;
+}
+.ar-user-empire-stat {
+	color:#fff;
+}
 
 .ar-player-header {
 	font-size:12px !important;
@@ -883,7 +901,10 @@ color: #6F9 !important;
 	font-size:14px;
 	font-weight:bold;
 }
-
+.planet-facilities-requiremenets {
+	font-size:10px;
+	color:#666;
+}
 .planet-table-container {
 margin: 0px;
 padding: 0px;
@@ -1607,7 +1628,7 @@ width: 114px;
 height: 48px;
 clear:both;
 }
-.login-option input[type=email] {
+.login-option input[type=handle] {
   outline: none;
   padding: 3px 0px 3px 3px;
   margin: 5px 1px 3px 0px;
@@ -1619,7 +1640,7 @@ clear:both;
  color:#FFF;
 }
  
-.login-option input[type=email]:focus {
+.login-option input[type=handle]:focus {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
   padding: 3px 0px 3px 3px;
   margin: 5px 1px 3px 0px;

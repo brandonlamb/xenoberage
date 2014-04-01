@@ -164,6 +164,13 @@ class manage_log {
 				return $a . "'s ship was just too strong for us. Your ice cold corpse can been seen burning up in a nearby planets atmosphere!";  
 			  }
 			  break;
+			  case 29;
+			  if(($a=="") or is_null($a))
+			  {
+				  $a = "Unnamed";
+			  }
+			  return "Your planet <strong>".$a."</strong> in sector ".$b." was raided by pirates!. Your security forces managed to arrive on the scene in time, but you lost ".$c." credits!";
+			  break;
 		 }
 	}
 /*

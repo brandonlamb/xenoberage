@@ -17,6 +17,10 @@
 //
 // File: config.php
 
+//Facebook Details
+define ('FB_ID', 	'');
+define ('FB_SECRET','');
+define ('FB_CHANNEL', '');
 
 
                                                                 // All sched_* vars are in minutes.
@@ -34,7 +38,8 @@ $sched_news                 = 15;                               // How often new
 $sched_degrade              = 6;                                // How often sector fighters degrade when unsupported by a planet
 $sched_apocalypse           = 15;                               // How often apocalypse events will occur
 $sched_thegovernor          = 1;                                // How often the governor will run, cleaning up out-of-bound values
-$doomsday_value             = 90000000;                         // Number of colonists a planet needs before being affected by the apocalypse
+$sched_empire				= 10;
+$doomsday_value             = 190000000;                         // Number of colonists a planet needs before being affected by the apocalypse
 $color_header               = '#500050';                        // GUI colors - soon to be moved into templates
 $color_line1                = '#300030';                        // GUI colors - soon to be moved into templates
 $color_line2                = '#400040';                        // GUI colors - soon to be moved into templates
@@ -50,7 +55,7 @@ $fed_max_score				= 1000000;							// The maximum score a user can have before g
 $max_ranks                  = 100;                              // The maximum number of ranks displayed on ranking.php
 $rating_combat_factor       = 0.8;                              // Amount of rating gained from combat
 $server_closed              = false;                            // True = block logins but not new account creation
-$account_creation_closed    = true;                            // True = block new account creation
+$account_creation_closed    = false;                            // True = block new account creation
 $newbie_nice                = 'YES';                            // If a ship is destroyed without a EWD, *and* is below a certain level for all items, then regen their ship
 $newbie_hull                = '8';                              // If a destroyed player has a hull less than newbie hull, he will be regen'd to play more
 $newbie_engines             = '8';                              // If a destroyed player has a engines less than newbie engines, he will be regen'd to play more
@@ -120,7 +125,7 @@ $basedefense                = 1;                                // Additional fa
 $colonist_price             = 5;                                // The standard price for a colonist at a special port
 $colonist_production_rate   = 0.005;                            // The rate of production for colonists on a planet (prior to consideration of organics)
 $colonist_reproduction_rate = 0.0005;                           // The rate of reproduction for colonists on a planet after consideration of starvation due to organics
-$colonist_limit             = 1000000000;                        // The maximum number of colonists on a planet
+$colonist_limit             = 200000000;                        // The maximum number of colonists on a planet
 $planet_max_credits			= 10000000000000000;				// Sets the maxumin credits a planet can hold
 $max_credits_allowed		= 10000000000000000;				//Max credits allowed in IGB
 $organics_consumption       = 0.05;                             // How many units of organics does a single colonist eat (require to avoid starvation)
@@ -182,6 +187,32 @@ $max_emerwarp               = 10;                               // The maximum n
 $max_genesis                = 10;                               // The maximum number of genesis devices a player can have at one time
 $max_beacons                = 10;                               // The maximum number of beacons a player can have at one time
 $max_warpedit               = 10;                               // The maximum number of warpeditors a player can have at one time
+
+$facility_hydroponics_food		= 1;								//number of food each facility produces per tick
+$facility_shipyard_parts		= 1;								//number of parts each facility produces per tick
+$facility_solarplant_energy		= 1;								//number of energy each facility produces per tick
+$facility_research_points		= 1;								//number of research each facility produces per tick
+$facility_mining_ore			= 1;								//number of research each facility produces per tick
+$requirement_hydro_credits		= 1000000000;
+$requirement_hydro_organics		= 500000000;
+$requirement_hydro_goods		= 100000000;
+$requirement_banking_creds		= 10000000000;
+$requirement_shipyard_credits	= 10000000000;
+$requirement_shipyard_goods		= 500000000;
+$requirement_shipyard_ore		= 500000000;
+$requirement_solar_credits		= 500000000;
+$requirement_solar_goods		= 100000000;
+$requirement_solar_ore			= 100000000;
+$requirement_medical_credits	= 5000000000;
+$requirement_medical_goods		= 500000000;
+$requirement_medical_cols		= ceil($colonist_limit/5);
+$requirement_research_credits	= 5000000000;
+$requirement_research_cols		= ceil($colonist_limit/3);
+$requirement_military_credits	= 5000000000;
+$requirement_military_cols		= ceil($colonist_limit/3);
+$requirement_military_torps		= 75000000;
+$requirement_military_figs		= 75000000;
+
 $bounty_all_special         = true;                             // Stop access on all Special Ports when you have a federation bounty on you.
 $bnt_ls                     = false;                            // Should the game register with the list server? (currently not functional)
 $local_number_dec_point     = '.';                              // Localization (regional) settings - soon to be moved into languages
@@ -192,6 +223,8 @@ $email_server               = 'mail.example.com';               // What mail ser
 $adminpass                  = '';                         // The administrator password
 $admin_mail                 = '';              // The administrator email address
 $adminname                  = '';                     // The title for the administrator (used when emailing)
+$lang = $default_lang;
+
 
 
 require($_SERVER['DOCUMENT_ROOT']."/global_includes.php");                                  // A central location for including/requiring other files - Note that we use require because the game cannot function without it.

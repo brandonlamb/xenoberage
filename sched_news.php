@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -43,7 +43,41 @@ db_op_result ($db, $sql, __LINE__, __FILE__, $db_logging);
 while (!$sql->EOF)
 {
     $row = $sql->fields;
-    if ($row['amount'] >= 50)
+    if ($row['amount'] >= 150)
+    {
+        $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id=? AND news_type='planet150';", array($row['owner']));
+        db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
+        
+        if ($sql2->EOF)
+        {
+			$l_news_p_text150 = "The enormous vast empire of [name], represented by 150 planets in the whole galaxy is getting a threatening strength. One of the BNN reporters found out that [name] is upgrading his ship planning a major war. In an interview [name] announced that is done on defence purpose only!";
+            $planetcount = 150;
+            $name = get_player_name($row['owner']);
+            $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
+            $headline = $l_news_p_headline2 ." ". $planetcount ." ". $l_news_planets;
+            $l_news_p_text1502=str_replace("[name]",$name,$l_news_p_text150);
+            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'planet100');", array($headline, $l_news_p_text1502, $row['owner']));
+            db_op_result ($db, $news, __LINE__, __FILE__, $db_logging);
+        }
+    }
+    else if ($row['amount'] >= 100)
+    {
+        $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id=? AND news_type='planet100';", array($row['owner']));
+        db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
+        
+        if ($sql2->EOF)
+        {
+			$l_news_p_text100 = "The enormous vast empire of [name], represented by 100 planets in the whole galaxy is getting a threatening strength. One of the BNN reporters found out that [name] is upgrading his ship planning a major war. In an interview [name] announced that is done on defence purpose only!";
+            $planetcount = 100;
+            $name = get_player_name($row['owner']);
+            $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
+            $headline = $l_news_p_headline2 ." ". $planetcount ." ". $l_news_planets;
+            $l_news_p_text1002=str_replace("[name]",$name,$l_news_p_text100);
+            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'planet100');", array($headline, $l_news_p_text1002, $row['owner']));
+            db_op_result ($db, $news, __LINE__, __FILE__, $db_logging);
+        }
+    }
+    else if ($row['amount'] >= 50)
     {
         $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id=? AND news_type='planet50';", array($row['owner']));
         db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
@@ -119,7 +153,73 @@ db_op_result ($db, $sql, __LINE__, __FILE__, $db_logging);
 while (!$sql->EOF)
 {
     $row = $sql->fields;
-    if ($row['amount'] >= 1000000000)
+    if ($row['amount'] >= 1000000000000)
+    {
+        $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'col_X2';", array($row['owner']));
+        db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
+        
+        if ($sql2->EOF)
+        {
+			$l_news_c_text_X2 = "The humongous empire of [name] now has 1 Trillion colonists, BNN reporters found out that [name] is in possesion of some weird cloning mechanism allowing him to breed new colonists in huge amounts. With this amount of colonists, the econmic strength of this empire is enormous, BNN hopes that [name] does not spend his money on warfare";
+            $name = get_player_name($row['owner']);
+            $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
+            $headline = $l_news_p_headline2 ." 1 Trillion Colonists";
+            $l_news_c_text_X22=str_replace("[name]",$name,$l_news_c_text_X2);
+            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'col_X2');", array($headline, $l_news_c_text_X22, $row['owner']));
+            db_op_result ($db, $news, __LINE__, __FILE__, $db_logging);
+        }
+    }
+    else if ($row['amount'] >= 500000000000)
+    {
+        $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'col_X1';", array($row['owner']));
+        db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
+        
+        if ($sql2->EOF)
+        {
+			$l_news_c_text_X1 = "The humongous empire of [name] now has 500 Billion colonists, BNN reporters found out that [name] is in possesion of some weird cloning mechanism allowing him to breed new colonists in huge amounts. With this amount of colonists, the econmic strength of this empire is enormous, BNN hopes that [name] does not spend his money on warfare";
+            $name = get_player_name($row['owner']);
+            $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
+            $headline = $l_news_p_headline2 ." 500 Billion Colonists";
+            $l_news_c_text_X12=str_replace("[name]",$name,$l_news_c_text_X1);
+            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'col_X1');", array($headline, $l_news_c_text_X12, $row['owner']));
+            db_op_result ($db, $news, __LINE__, __FILE__, $db_logging);
+        }
+    }
+    else if ($row['amount'] >= 100000000000)
+    {
+        $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'col100000';", array($row['owner']));
+        db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
+        
+        if ($sql2->EOF)
+        {
+			$l_news_c_text100000 = "The humongous empire of [name] now has 100 Billion colonists, BNN reporters found out that [name] is in possesion of some weird cloning mechanism allowing him to breed new colonists in huge amounts. With this amount of colonists, the econmic strength of this empire is enormous, BNN hopes that [name] does not spend his money on warfare";
+            $colcount = 100000;
+            $name = get_player_name($row['owner']);
+            $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
+            $headline = $l_news_p_headline2 ." 100 Billion Colonists";
+            $l_news_c_text1000002=str_replace("[name]",$name,$l_news_c_text100000);
+            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'col100000');", array($headline, $l_news_c_text1000002, $row['owner']));
+            db_op_result ($db, $news, __LINE__, __FILE__, $db_logging);
+        }
+    }
+    else if ($row['amount'] >= 10000000000)
+    {
+        $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'col10000';", array($row['owner']));
+        db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
+        
+        if ($sql2->EOF)
+        {
+			$l_news_c_text10000 = "The humongous empire of [name] now has 10 Billion colonists, BNN reporters found out that [name] is in possesion of some weird cloning mechanism allowing him to breed new colonists in huge amounts. With this amount of colonists, the econmic strength of this empire is enormous, BNN hopes that [name] does not spend his money on warfare";
+            $colcount = 10000;
+            $name = get_player_name($row['owner']);
+            $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
+            $headline = $l_news_p_headline2 ." 10 Billion Colonists";
+            $l_news_c_text100002=str_replace("[name]",$name,$l_news_c_text10000);
+            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'col10000');", array($headline, $l_news_c_text100002, $row['owner']));
+            db_op_result ($db, $news, __LINE__, __FILE__, $db_logging);
+        }
+    }
+    else if ($row['amount'] >= 1000000000)
     {
         $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'col1000';", array($row['owner']));
         db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
@@ -186,6 +286,57 @@ while (!$sql->EOF)
     $sql->MoveNext();
 } // while
 // end generation of colonist amount
+
+$sql = $db->Execute("SELECT SUM(credits) AS amount, owner FROM {$db->prefix}planets WHERE owner !='0' GROUP BY owner ORDER BY amount ASC;");
+db_op_result ($db, $sql, __LINE__, __FILE__, $db_logging);
+
+while (!$sql->EOF)
+{
+    $row = $sql->fields;
+    if ($row['amount'] >= 500000000000)
+    {
+        $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'credit_1';", array($row['owner']));
+        db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
+        
+        if ($sql2->EOF)
+        {
+			$name = get_player_name($row['owner']);
+			$headline = "Federation Credit Inspection Report";
+			$l_news = "While doing routine checks on planets, it was discovered that ".$name."'s empire has amassed a vast wealth of over 500 Billion credits in storage, we will be keeping a close eye on the books from here on out.";
+            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'credit_1');", array($headline, $l_news, $row['owner']));
+            db_op_result ($db, $news, __LINE__, __FILE__, $db_logging);
+        }
+    }
+    else if ($row['amount'] >= 1000000000000)
+    {
+        $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'credit_2';", array($row['owner']));
+        db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
+        
+        if ($sql2->EOF)
+        {
+			$name = get_player_name($row['owner']);
+			$headline = "Federation Credit Inspection Report";
+			$l_news = "While doing routine checks on planets, it was discovered that ".$name."'s empire has amassed a vast wealth of over 1 Trillion credits in storage, why ".$name." is building up a large cash reserve has yet to be determined!.";
+            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'credit_2');", array($headline, $l_news, $row['owner']));
+            db_op_result ($db, $news, __LINE__, __FILE__, $db_logging);
+        }
+    }
+    else if ($row['amount'] >= 100000000000000)
+    {
+        $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'credit_3';", array($row['owner']));
+        db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
+        
+        if ($sql2->EOF)
+        {
+			$name = get_player_name($row['owner']);
+			$headline = "Federation Credit Inspection Report";
+			$l_news = "After previous reports, inspectors organised another inspection of ".$name."'s banks, however while carrying out this inspection, the inspectors went missing. A coded message was later intercepted, and contain the following.. ".$name." has amassed a vast wealth of over 100 trillion credits, and is in a position to threaten the stability of the federation.";
+            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'credit_3');", array($headline, $l_news, $row['owner']));
+            db_op_result ($db, $news, __LINE__, __FILE__, $db_logging);
+        }
+    }
+    $sql->MoveNext();
+} // while
 
 $multiplier = 0; // No need to run this again
 ?>

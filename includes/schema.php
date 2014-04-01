@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -90,6 +90,15 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}planets (" .
              "prod_fighters int DEFAULT '0' NOT NULL," .
              "prod_torp int DEFAULT '0' NOT NULL," .
              "defeated enum('Y','N') DEFAULT 'N' NOT NULL," .
+			 "facility_homeworld enum('Y','N') DEFAULT 'N' NOT NULL," .
+			 "facility_shipyard enum('Y','N') DEFAULT 'N' NOT NULL," .
+			 "facility_solarplant enum('Y','N') DEFAULT 'N' NOT NULL," .
+			 "facility_research enum('Y','N') DEFAULT 'N' NOT NULL," .
+			 "facility_military enum('Y','N') DEFAULT 'N' NOT NULL," .
+			 "facility_medical enum('Y','N') DEFAULT 'N' NOT NULL," .
+			 "facility_bank enum('Y','N') DEFAULT 'N' NOT NULL," .
+			 "facility_hydroponics enum('Y','N') DEFAULT 'N' NOT NULL," .
+			 "senator_id int DEFAULT '0' NOT NULL," .
              "PRIMARY KEY (planet_id)," .
              "KEY owner (owner)," .
              "KEY corp (corp)" .
@@ -155,6 +164,8 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}ships (" .
              "last_login datetime," .
 			 "last_kami datetime," .
 			 "last_sofa datetime," .
+			 "ship_kills int DEFAULT '0' NOT NULL," .
+			 "ship_deaths int DEFAULT '0' NOT NULL," .
              "rating int DEFAULT '0' NOT NULL," .
              "score int DEFAULT '0' NOT NULL," .
 			 "points int DEFAULT '0' NOT NULL," .
@@ -185,6 +196,34 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}ships (" .
 $err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating ships Table","Failed","Passed");
+
+$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}account (" .
+             "user_id int unsigned NOT NULL auto_increment," .
+             "username char(200) NOT NULL," .
+			 "name char(200) NOT NULL," .
+			 "handle char(200) NOT NULL," .
+			 "active_ship int NOT NULL," .
+			 "location char(200) NOT NULL," .
+			 "gender tinytext NOT NULL," .
+             "password char(200) NOT NULL," .
+             "email char(200) NOT NULL," .
+			 "facebook_id char(200) NOT NULL," .
+			 "last_activity datetime," .
+			 "registration_date datetime," .
+			 "ip tinytext NOT NULL," .
+			 "empire_parts bigint(20) DEFAULT '0' NOT NULL," .
+			 "empire_research bigint(20) DEFAULT '0' NOT NULL," .
+			 "empire_food bigint(20) DEFAULT '0' NOT NULL," .
+			 "empire_energy bigint(20) DEFAULT '0' NOT NULL," .
+			 "empire_ores bigint(20) DEFAULT '0' NOT NULL," .
+             "PRIMARY KEY (username)," .
+             "KEY handle (handle)," .
+             "KEY username (username)," .
+             "KEY user_id (user_id)" .
+             ")");
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
+
+Table_Row("Creating User Account Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}universe (" .
              "sector_id int unsigned NOT NULL auto_increment," .

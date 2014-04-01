@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -98,7 +98,7 @@ if (array_key_exists('who', $_REQUEST) == true)
 $result = $db->Execute("SELECT {$db->prefix}ships.*, {$db->prefix}teams.team_name, {$db->prefix}teams.description, {$db->prefix}teams.creator, {$db->prefix}teams.id
             FROM {$db->prefix}ships
             LEFT JOIN {$db->prefix}teams ON {$db->prefix}ships.team = {$db->prefix}teams.id
-            WHERE {$db->prefix}ships.email=?;", array($username)) or die($db->ErrorMsg());
+            WHERE {$db->prefix}ships.ship_id='$user_ship_id'") or die($db->ErrorMsg());
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo    = $result->fields;
 
@@ -109,7 +109,7 @@ if ($playerinfo['team_invite'] != 0)
     $invite = $db->Execute(" SELECT {$db->prefix}ships.ship_id, {$db->prefix}ships.team_invite, {$db->prefix}teams.team_name,{$db->prefix}teams.id
             FROM {$db->prefix}ships
             LEFT JOIN {$db->prefix}teams ON {$db->prefix}ships.team_invite = {$db->prefix}teams.id
-            WHERE {$db->prefix}ships.email=?;", array($username)) or die($db->ErrorMsg());
+            WHERE {$db->prefix}ships.ship_id='$user_ship_id'") or die($db->ErrorMsg());
     db_op_result ($db, $invite, __LINE__, __FILE__, $db_logging);
     $invite_info  = $invite->fields;
 }

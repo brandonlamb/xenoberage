@@ -24,17 +24,57 @@ if (preg_match("/sched_apocalypse.php/i", $_SERVER['PHP_SELF']))
 }
 include "config/config.php";
 $manage_log = new manage_log();
+echo "<strong>Pirate Raid</strong><br><br>";
+$pirate_day = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE credits > $planet_max_credits");
+db_op_result ($db, $pirate_day, __LINE__, __FILE__, $db_logging);
+$chance = 9;
+$reccount = $pirate_day->RecordCount();
+if ($reccount > 200)
+{
+  	$chance = 7; // increase chance it will happen if we have lots of planets meeting the criteria
+}
+$affliction = mt_rand(1,$chance); // the chance something bad will happen
+if ($pirate_day && $affliction < 3 && $reccount > 0)
+{
+	
+    $i=1;
+    $targetnum = mt_rand(1,$reccount);
+    while (!$pirate_day->EOF)
+    {
+        if ($i==$targetnum)
+        {echo "loooool";
+            $targetinfo=$pirate_day->fields;
+            break;
+        }
+        $i++;
+        $pirate_day->MoveNext();
+    }
+	
+    if ($affliction == 1)
+    {
+		/*pirates launch raid on your bank!*/
+        echo "Pirates raided planet ".$targetinfo['planet_id']."!!<br/>.";
+		$pirates_steal = rand(1,20)/100;
+        $resx = $db->Execute("UPDATE {$db->prefix}planets SET credits = ROUND(credits-credits*$pirates_steal) WHERE planet_id = $targetinfo[planet_id]");
+        db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+		$stolen_credits = NUMBER($targetinfo['credits']*$pirates_steal);
+		##New Log ##
+		$manage_log->player_log($targetinfo['owner'],29,$targetinfo['name'],$targetinfo['sector_id'],$stolen_credits,'notrack',"<font color='#E9AB17'>Medium Priority</font>",'<b><font color="#FF0000">Warning</font></b>');
+    }
+}
+echo "<br/>";
+
+
+##################################################################################################################
 echo "<strong>ZOMBIE APOCALYPSE</strong><br><br>";
-echo "A zombie plague has been unleashed...<br>";
 $doomsday = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE colonists > $doomsday_value");
 db_op_result ($db, $doomsday, __LINE__, __FILE__, $db_logging);
 $chance = 9;
 $reccount = $doomsday->RecordCount();
 if ($reccount > 200)
 {
-    $chance = 7; // increase chance it will happen if we have lots of planets meeting the criteria
+  	$chance = 7; // increase chance it will happen if we have lots of planets meeting the criteria
 }
-
 $affliction = mt_rand(1,$chance); // the chance something bad will happen
 if ($doomsday && $affliction < 3 && $reccount > 0)
 {
@@ -50,9 +90,10 @@ if ($doomsday && $affliction < 3 && $reccount > 0)
         $i++;
         $doomsday->MoveNext();
     }
+	
     if ($affliction == 1) // Space Plague
     {
-        echo "ZZOOMMBBIIEESS!<br/>.";
+         echo "Zombie virus detected on planet ".$targetinfo['planet_id']."!!<br/>.";
         $resx = $db->Execute("UPDATE {$db->prefix}planets SET colonists = ROUND(colonists-colonists*$space_plague_kills) WHERE planet_id = $targetinfo[planet_id]");
         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
         $logpercent = ROUND($space_plague_kills * 100);

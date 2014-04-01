@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -19,13 +19,11 @@
 
 include "config/config.php";
 updatecookie ();
-
 if (checklogin ())
 {
     die();
 }
 
-include_once "includes/is_same_team.php";
 $sql_manager = new manage_table();
 $ship_manager = new manage_ship();
 $player_manager = new manage_player();
@@ -50,9 +48,8 @@ if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_sel
 }
 unset($_SESSION['ship_selected']);
 
-$found_user = $sql_manager->find_player_userid($username);
 //$target_data = $sql_manager->playerinfo($victim_id,"");
-echo $ship_manager->attack_target_ship($ship_id,$found_user['ship_id']);
+echo $ship_manager->attack_target_ship($ship_id,$user_ship_id);
 
 TEXT_GOTOMAIN();
 ?>

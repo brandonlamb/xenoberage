@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -69,7 +69,7 @@ function go_build_base($planet_id, $sector_id)
 
   echo "<br>Click <a href=planet_report.php?PRepType=1>here</A> to return to the Planet Status Report<br><br>";
 
-  $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+  $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id='$user_ship_id'");
   db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
   $playerinfo=$result->fields;
 
@@ -139,7 +139,7 @@ function collect_credits($planetarray)
   $CS = "GO"; // Current State
 
   // Look up Player info that wants to collect the credits.
-  $result1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username' LIMIT 1");
+  $result1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id='$user_ship_id' LIMIT 1");
   db_op_result ($db, $result1, __LINE__, __FILE__, $db_logging);
   $playerinfo = $result1->fields;
 
@@ -238,7 +238,7 @@ function change_planet_production($prodpercentarray)
   global $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp;
   global $username, $l_unnamed;
 
-  $result = $db->Execute("SELECT ship_id,team FROM {$db->prefix}ships WHERE email='$username'");
+  $result = $db->Execute("SELECT ship_id,team FROM {$db->prefix}ships WHERE ship_id='$user_ship_id'");
   db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
   $ship_id = $result->fields['ship_id'];
   $team_id = $result->fields['team'];
@@ -391,7 +391,7 @@ function Take_Credits($sector_id, $planet_id)
   global $l_unnamed;
   
   // Get basic Database information (ship and planet)
-  $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+  $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id='$user_ship_id'");
   db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
   $playerinfo = $res->fields;
 
@@ -424,10 +424,10 @@ function Take_Credits($sector_id, $planet_id)
 
         // update the player record
         // credits
-        $res = $db->Execute("UPDATE {$db->prefix}ships SET credits=$NewShipCredits WHERE email='$username'");
+        $res = $db->Execute("UPDATE {$db->prefix}ships SET credits=$NewShipCredits WHERE ship_id='$user_ship_id'");
         db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
         // turns
-        $res = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1 WHERE email='$username'");
+        $res = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1 WHERE ship_id='$user_ship_id'");
         db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
         echo "Took " . NUMBER($CreditsTaken) . " Credits from planet $planetinfo[name]. <br>";
@@ -464,7 +464,7 @@ function Real_Space_Move($destination)
 
   global $l_rs_ready, $l_rs_movetime, $l_rs_noturns;
 
-  $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+  $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id='$user_ship_id'");
   db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
   $playerinfo = $res->fields;
 

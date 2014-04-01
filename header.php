@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -21,7 +21,7 @@
 Load the website class auto loader into the 
 */
 require_once($_SERVER['DOCUMENT_ROOT'].'/classes/auto.php');
-
+include $_SERVER['DOCUMENT_ROOT']."/config/config.php";
 
 header("Content-type: text/html; charset=utf-8");
 header("X-UA-Compatible: IE=Edge, chrome=1");
@@ -33,9 +33,11 @@ if (!isset($body_class))
 {
     $body_class = "bnt";
 }
+	$facebook = new facebook(array(
+	  'appId'  => FB_ID,
+	  'secret' => FB_SECRET,
+	));
 
-$signame = player_insignia_name ($db, $username);
-$user_title = "{$signame} <span class='ar-user-handle'>{$playerinfo['character_name']}</span>{$l->get('l_aboard')} <span class='ar-user-shipname'><a href='report.php' target='_self'>{$playerinfo['ship_name']}</a></span>";
 
 ?>
 <!DOCTYPE html>
@@ -50,12 +52,37 @@ $user_title = "{$signame} <span class='ar-user-handle'>{$playerinfo['character_n
 <link rel='stylesheet' type='text/css' href='templates/alienrage/styles/main.css'>
 <link rel='stylesheet' type='text/css' href='templates/alienrage/styles/styles.css'>
 <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+<script id="facebook-jssdk" src="//connect.facebook.net/en_US/all.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css">
 <script type="text/javascript" src="templates/alienrage/js/planet-slider.js"></script>
 </head>
 <body>
+<div id="fb-root"></div>
+<script>
+					  window.fbAsyncInit = function() {
+						FB.init({
+						  appId      : '<?php echo $facebook->getAppID(); ?>', // App ID
+						  channelUrl : '<?php echo FB_CHANNEL; ?>', // Channel File
+						  status     : true, // check login status
+						  cookie     : true, // enable cookies to allow the server to access the session
+						  oauth      : true, // enable OAuth 2.0
+						  xfbml      : true  // parse XFBML
+						});
+
+    // Additional initialization code such as adding Event Listeners goes here
+  };
+
+  // Load the SDK asynchronously
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 	<div class="table-header"> 
 		<div class="tablerow" id="header-fix">
         	<!--<div class="alienrage-logo-large"></div>-->
@@ -67,8 +94,18 @@ $user_title = "{$signame} <span class='ar-user-handle'>{$playerinfo['character_n
 	</div>
 	<div class="table-navigator"> 
 		<div class="tablerow"> 
-            <div class="tableNavigation user-information-bar ar-player-header">
+            <div class="tableNavigation user-information-bar ar-player-empire-header">
                <?
+			   $sql_manager = new manage_table();
+			   $account_details = $sql_manager->get_account_stats($user_ship_id);
+			   
+			   $user_title = "
+			   <span class='ar-user-empire'>Research: </span><span class='ar-user-empire-stat'>".NUMBER($account_details['empire_research'])."</span><span class='ar-player-empire-splitter'> / </span>
+			   <span class='ar-user-empire'>Food: </span><span class='ar-user-empire-stat'>".NUMBER($account_details['empire_food'])."</span><span class='ar-player-empire-splitter'> / </span>
+			   <span class='ar-user-empire'>Parts: </span><span class='ar-user-empire-stat'>".NUMBER($account_details['empire_parts'])."</span><span class='ar-player-empire-splitter'> / </span>
+			   <span class='ar-user-empire'>Cells: </span><span class='ar-user-empire-stat'>".NUMBER($account_details['empire_energy'])."</span><span class='ar-player-empire-splitter'> / </span>
+			   <span class='ar-user-empire'>Rare Ores: </span><span class='ar-user-empire-stat'>".NUMBER($account_details['empire_ores'])."</span>
+			   ";
 			   echo $user_title;
 			   ?>
             </div>

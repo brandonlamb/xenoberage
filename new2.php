@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -17,35 +17,203 @@
 //
 // File: new2.php
 
-include "config/config.php";
+require_once($_SERVER['DOCUMENT_ROOT']."/config/config.php");
 
-if (!isset($_GET['lang']))
-{
-    $_GET['lang'] = null;
-    $lang = $default_lang;
-    $link = '';
-}
-else
-{
-    $lang = $_GET['lang'];
-    $link = "?lang=" . $lang;
-}
-
-// New database driven language entries
-load_languages($db, $lang, array('new', 'login', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);
-
-$title = $l_new_title2;
+$title = "User Registration";
 include "header.php";
+
+$status = false;
+$errors = array();
 ?>
+
 <div class="tablecell content both-border">
 	<div class="pad">
 <?
 bigtitle ();
 
+/*If account creation is closed, do not show the page!*/
 if ($account_creation_closed)
 {
-    die ($l_new_closed_message);
+    die ("Server Is Currently Closed To New Players");
 }
+##
+##
+## New Registration Process
+##
+##
+$facebook = new facebook(array('appId'  => FB_ID,'secret' => FB_SECRET,));
+$request = $facebook->getSignedRequest();
+if ($request)
+{
+	$register = $request['registration'];
+	try
+	{
+		$db = db::init();
+		$fbId = (isset($request['user_id'])) ? $request['user_id'] : 0;
+		$user = new user();
+		if ($fbId != 0)
+		{
+			if ($user->fbLogin($fbId)) 
+			{
+				/*They have account, throw them back to the main page*/
+				header('Location: index.php');
+				exit();
+			}
+		}	
+			
+		$sth = $db->prepare("SELECT * FROM ".$db_prefix."account WHERE username = ?");
+		$sth->execute(array($register['username']));
+		if (!$sth->fetch())
+		{				
+			$sth = $db->prepare("SELECT * FROM ".$db_prefix."account WHERE email = ?");
+			$sth->execute(array($register['email']));
+			if ((false != $sth->fetch()) && ($fbId != 0))
+			{
+				$sth = $db->prepare("UPDATE ".$db_prefix."account SET facebook_id = ? WHERE email = ?");
+				if ($sth->execute(array($fbId, $register['email'])))
+				{
+					$status = $user->fbLogin($fbId);
+				}
+			}
+			else
+			{
+
+				$shared_function = new shared();
+				$time_date_full = $shared_function->manage_time("full");
+				$location = $register['location'];
+				if (is_array($location))
+				{
+					$location = $location['name'];
+				}
+				if($fbId>1)
+				{
+					#user has a facebook id, use it
+					$account_id = $fbId;
+				}
+				else
+				{
+					#create a randomly large id
+					$account_id = rand(1,999).rand(1,999).rand(1,999);
+				}
+				$sql = "INSERT INTO ".$db_prefix."account (facebook_id, username, password, name, email, location, gender, ip, registration_date, handle, active_ship, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				$data = array(
+								$fbId,
+								$register['username'],
+								md5($register['password']),
+								$register['name'],
+								$register['email'],
+								$location,
+								$register['gender'],
+								$_SERVER['REMOTE_ADDR'],
+								$time_date_full,
+								$register['handle'],
+								0,
+								$account_id
+				);
+				$sth = $db->prepare($sql);
+				if ($sth->execute($data))
+				{
+					$sql_manager = new manage_table();
+					/*
+					Now Create Ship (need to code in a way to allow multiple ships - future feature....)
+					*/
+					##
+					
+					##get user id from the newly created account
+					$user_account_id = $sql_manager->find_account_id($register['username']);
+					##create ship from new id
+					$create_ship = $sql_manager->create_user_space_ship($user_account_id,$register['shipname'],$register['handle'],$register['email'],$time_date_full,$_SERVER['REMOTE_ADDR']);
+					if($create_ship)
+					{
+						##update user account with active ship
+						##################
+						## not implementing multiple ships yet, however when we do, first value needs to be set differently with anothe call asking for the ship id
+						##################
+						$set_active_ship = $sql_manager->set_active_ship($user_account_id,$user_account_id);
+						if($set_active_ship)
+						{
+							$status = $user->login($register['username'], $register['password']);
+						}
+						else
+						{
+							echo "Error setting your ship as active";
+							die();
+							
+						}
+					}
+					else
+					{
+						echo "Error creating account";
+						die();
+						
+					}
+					
+
+				}
+				else
+				{
+					echo "failed account creation";
+				}
+			}
+		}
+		else
+		{
+			array_push($errors, 'Username is already taken!');
+		}
+	}
+	catch (Exception $e) 
+	{
+		array_push($errors, 'Database error: ' . $e->getMessage());
+	}
+}
+else
+{
+	array_push($errors, 'Error with validating Signed request.');
+}
+
+				 if ($status = true)
+				 { ?>
+					<h1>Success</h1>
+					<p>
+						New Account Created!!
+						<a href="index.php">Start Playing XR</a>
+					</p>
+				<?php 
+				 }
+				 else
+				 { ?>
+					<h1>Errors occured during registration.</h1>
+					<p>Please try again.</p>
+					
+					<?php
+						if (!empty($errors))
+						{
+							echo '<ul>';
+							
+							foreach ($errors as $e)
+							{
+								echo '<li>' . $e . '</li>';
+							}
+							
+							echo '</ul>';
+						}
+				}
+
+			
+			?>
+    </div>
+    <div class="footer">
+         <div class="github"><a href="https://github.com/xgermz/xenoberage"><div class="logo-github"></div></a></div>
+        <div class="copyright"><span class="bolder">Xenobe Rage</span> &copy;2012 - 2014 David Dawson. All rights reserved.<br /><span class="bolder">Blacknova Traders</span> &copy;2000-2012 Ron Harwood &amp; the BNT Dev team. All rights reserved.</div>
+    </div>
+</div>
+            <?php
+/*
+
+
+
+
+
 
 # Get the user supplied post vars.
 $username  = null;
@@ -201,7 +369,11 @@ else
     $l_new_err = str_replace ("[here]", "<a href='new.php'>" . $l_here . "</a>",$l_new_err);
     echo $l_new_err;
 }
+
+*/
 ?>
+
+
 </div></div>
 <?
 include "footer.php";

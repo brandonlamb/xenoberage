@@ -70,6 +70,8 @@ Table prefix for each server
 */
 $db_prefix = "";
 
+$website_domain_default = "";
+
 // The following two settings are now set automatically in global_cleanups.
 // If it does not work, you'll need to comment them out, and uncomment and set the variables listed below.
 
@@ -81,7 +83,7 @@ $db_prefix = "";
 // if you get weird errors with cookies then make sure the game domain has TWO dots
 // i.e. if you reside your game on http://www.blacknova.net put .blacknova.net as $gamedomain.
 // If your game is on http://www.some.site.net put .some.site.net as your game domain. Do not put port numbers in $gamedomain.
-// $gamedomain = "";
+ $gamedomain = "";
 
 // This is the trailing part of the URL, that is not part of the domain.
 // If you enter www.blah.com/blacknova to access the game, you would leave the line as it is.

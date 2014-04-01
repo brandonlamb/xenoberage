@@ -48,6 +48,140 @@ class manage_table {
 		$this->connect = db::init();
 	}
 	#############################################################################################
+	# GET ACCOUNT ID																			#
+	#																							#
+	#############################################################################################
+	public function find_account_id($username){
+		global $db_prefix;		
+		$result = $this->connect->query("SELECT user_id FROM ".$db_prefix."account WHERE username='".$username."'");
+		$account_id = $result->fetch();
+		return $account_id['user_id'];
+	}
+	#############################################################################################
+	# GET ACCOUNT EMPIRE STATS																	#
+	#																							#
+	#############################################################################################
+	public function get_account_stats($user_id){
+		global $db_prefix;		
+		$result = $this->connect->query("SELECT empire_parts,empire_research,empire_food,empire_energy,empire_ores FROM ".$db_prefix."account WHERE user_id='".$user_id."'");
+		$account_stats = $result->fetch();
+		return $account_stats;
+	}
+	#############################################################################################
+	# SET ACCOUNT LIVE SHIP																		#
+	#																							#
+	#############################################################################################
+	public function set_active_ship($ship_id,$account_id){
+		global $db_prefix;
+		$set_active_ship = $this->connect->prepare("UPDATE ".$db_prefix."account SET active_ship=? WHERE user_id='".$account_id."'");
+		$set_active_ship->bindParam(1, $ship_id, PDO::PARAM_INT);
+		if($set_active_ship->execute())
+		{	
+			return true;									
+		}
+		else
+		{
+			return false;
+		}
+	}
+	#############################################################################################
+	# CREATE USER SPACESHIP																		#
+	#																							#
+	#############################################################################################
+	public function create_user_space_ship($account_id,$ship_name,$user_handle,$user_email,$stamp,$ip){
+		global $db_prefix;
+		global $start_armor;
+		global $start_credits;
+		global $start_energy;
+		global $start_fighters;
+		global $start_turns;
+		global $start_editors;
+		global $start_genesis;
+		global $start_beacon;
+		global $start_emerwarp;
+		global $escape;
+		global $scoop;
+		global $start_minedeflectors;
+		global $start_lssd;
+		
+		$create_ship = $this->connect->prepare("INSERT INTO ".$db_prefix."ships SET 
+		ship_id = ?,
+		ship_name = ?, 
+		ship_destroyed = ?, 
+		character_name = ?, 
+		password = ?, 
+		email = ?, 
+		armor_pts = ?, 
+		credits = ?,
+		ship_energy = ?,
+		ship_fighters = ?,
+		turns = ?,
+		on_planet = ?,
+		dev_warpedit = ?,
+		dev_genesis = ?,
+		dev_beacon = ?,
+		dev_emerwarp = ?,
+		dev_escapepod = ?,
+		dev_fuelscoop = ?,
+		dev_minedeflector = ?,
+		last_login = ?,
+		ip_address = ?,
+		trade_colonists = ?,
+		trade_fighters = ?,
+		trade_torps = ?,
+		trade_energy = ?,
+		lang = ?,
+		dev_lssd = ?
+		");
+		$default_ship_destroyed = "N";
+		$default_on_planet = "N";
+		$default_trade_colonists = "Y";
+		$default_trade_fighters = "N";
+		$default_trade_torps = "N";
+		$default_trade_energy = "Y";
+		$lang = "GB";
+		$password = "REDUNDANT";
+		
+		$create_ship->bindParam(1, $account_id, PDO::PARAM_INT);
+		$create_ship->bindParam(2, $ship_name, PDO::PARAM_STR);
+		$create_ship->bindParam(3, $default_ship_destroyed, PDO::PARAM_STR);
+		$create_ship->bindParam(4, $user_handle, PDO::PARAM_STR);
+		$create_ship->bindParam(5, $password, PDO::PARAM_STR);
+		$create_ship->bindParam(6, $user_email, PDO::PARAM_STR);
+		$create_ship->bindParam(7, $start_armor, PDO::PARAM_INT);
+		$create_ship->bindParam(8, $start_credits, PDO::PARAM_INT);
+		$create_ship->bindParam(9, $start_energy, PDO::PARAM_INT);
+		$create_ship->bindParam(10, $start_fighters, PDO::PARAM_INT);
+		$create_ship->bindParam(11, $start_turns, PDO::PARAM_INT);
+		$create_ship->bindParam(12, $default_on_planet, PDO::PARAM_STR);
+		$create_ship->bindParam(13, $start_editors, PDO::PARAM_INT);
+		$create_ship->bindParam(14, $start_genesis, PDO::PARAM_INT);
+		$create_ship->bindParam(15, $start_beacon, PDO::PARAM_INT);
+		$create_ship->bindParam(16, $start_emerwarp, PDO::PARAM_INT);
+		$create_ship->bindParam(17, $escape, PDO::PARAM_STR);
+		$create_ship->bindParam(18, $scoop, PDO::PARAM_STR);
+		$create_ship->bindParam(19, $start_minedeflectors, PDO::PARAM_INT);
+		$create_ship->bindParam(20, $stamp, PDO::PARAM_STR);
+		$create_ship->bindParam(21, $ip, PDO::PARAM_STR);
+		$create_ship->bindParam(22, $default_trade_colonists, PDO::PARAM_STR);
+		$create_ship->bindParam(23, $default_trade_fighters, PDO::PARAM_STR);
+		$create_ship->bindParam(24, $default_trade_torps, PDO::PARAM_STR);
+		$create_ship->bindParam(25, $default_trade_energy, PDO::PARAM_STR);
+		$create_ship->bindParam(26, $lang, PDO::PARAM_STR);
+		$create_ship->bindParam(27, $start_lssd, PDO::PARAM_STR);
+		if($create_ship->execute())
+		{
+			/*Ship built!*/
+			return true;										
+		}
+		else
+		{
+			/*Ship not built*/
+			//$create_ship->errorInfo();
+			return false;
+		}
+	}
+	#############################################################################################
 	# LOCK ANY TABLE																			#
 	#																							#
 	#############################################################################################
@@ -119,6 +253,16 @@ class manage_table {
 		return $sector_is_real->rowCount();
 	}
 	#############################################################################################
+	# CHECK PLANET IS REAL																		#
+	#																							#
+	#############################################################################################
+	public function real_planet($planet_id){
+		global $db_prefix;
+		$planet_is_real = $this->connect->query("SELECT * FROM ".$db_prefix."planets WHERE planet_id=".$planet_id.";");
+		$planet_is_real->execute();
+		return $planet_is_real->rowCount();
+	}
+	#############################################################################################
 	# COUNT SECTOR LINKS																		#
 	#																							#
 	#############################################################################################
@@ -128,6 +272,27 @@ class manage_table {
 		$count_links->execute();
 		return $count_links->rowCount();
 	}
+	#############################################################################################
+	# CHECK FOR XENOBE																			#
+	#																							#
+	#############################################################################################
+	public function is_that_xenobe($ship_id){
+		global $db_prefix;
+		$result = $this->connect->query("SELECT email FROM ".$db_prefix."ships WHERE ship_id=".$ship_id.";");
+		$data = $result->fetch();
+		
+		
+		if ( preg_match("/(\@xenobe)$/", $data['email']) !== 0 )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
 	#############################################################################################
 	# GET ZONE INFORMATION																		#
 	#																							#
@@ -326,6 +491,40 @@ class manage_table {
 		else
 		{
 			$result = $this->connect->query("SELECT ".$select." FROM ".$db_prefix."ships WHERE ship_id='".$id."'");
+		}
+
+		return $result->fetch();
+	}
+	#############################################################################################
+	# GET ALL PLANET INFORMATION																#
+	#																							#
+	#############################################################################################
+	public function planetinfo($id,$select){
+		global $db_prefix;
+		if($select=="")
+		{
+			$result = $this->connect->query("SELECT * FROM ".$db_prefix."planets WHERE planet_id='".$id."'");
+		}
+		else
+		{
+			$result = $this->connect->query("SELECT ".$select." FROM ".$db_prefix."planets WHERE planet_id'".$id."'");
+		}
+
+		return $result->fetch();
+	}
+	#############################################################################################
+	# GET ALL UNIVERSE INFORMATION																#
+	#																							#
+	#############################################################################################
+	public function universeinfo($id,$select){
+		global $db_prefix;
+		if($select=="")
+		{
+			$result = $this->connect->query("SELECT * FROM ".$db_prefix."universe WHERE sector_id='".$id."'");
+		}
+		else
+		{
+			$result = $this->connect->query("SELECT ".$select." FROM ".$db_prefix."universe WHERE sector_id='".$id."'");
 		}
 
 		return $result->fetch();
@@ -536,8 +735,17 @@ class manage_table {
 			$update_move->bindParam(1, $sector, PDO::PARAM_INT);	
 			if($update_move->execute())
 			{
-				$turns = $turns-1; /*Fix for log*/
-				$manage_log->security_log($ship_id,10,$sector,$turns);
+				if($this->is_that_xenobe($ship_id))
+				{
+					/*
+					Dont want xenobe movements spamming, just need to track real player movements
+					*/
+				}
+				else
+				{
+					$turns = $turns-1; /*Fix for log*/
+					$manage_log->security_log($ship_id,10,$sector,$turns);
+				}
 				return true;
 				# LOG THIS #											
 			}
@@ -918,11 +1126,13 @@ class manage_table {
 	public function updatePlayer($id,$table,$query){
 		global $db_prefix;
 		$manage_log = new manage_log();
+		
 		foreach ($query as $key => $field) {
 			/*Build list of fields to process*/
 			$fields_to_update .= $key." = ?, ";
 		}
 		$fields_to_update = substr($fields_to_update, 0, -2); /*FIX: Remove the last added comma*/
+
 		$update_player = $this->connect->prepare("UPDATE ".$db_prefix.$table." SET ".$fields_to_update." WHERE ship_id='".$id."'");
 		$n = 1;
 		foreach ($query as $key => &$field) {
@@ -938,10 +1148,18 @@ class manage_table {
 			}
 			$n++;
 		}
+		
 		if($update_player->execute())
 		{
 			# LOG THIS #
-			$manage_log->security_log($id,7,$table,$fields_to_update);
+			if($this->is_that_xenobe($id))
+			{
+				/*Dont want xenobes spamming the logs*/
+			}
+			else
+			{
+				$manage_log->security_log($id,7,$table,$fields_to_update);
+			}
 			return true;											
 		}
 		else
@@ -952,5 +1170,95 @@ class manage_table {
 		}
 			
 	}
+	#############################################################################################
+	# UPDATE RESOURCE																			#
+	#																							#
+	#############################################################################################
+	public function update_resources($player_id,$facility,$new_stat){
+		global $db_prefix;
+		$update_resources = $this->connect->prepare("UPDATE ".$db_prefix."account SET ".$facility."=".$facility."+".$new_stat." WHERE user_id=?");
+		$update_resources->bindParam(1, $player_id, PDO::PARAM_INT);
+		if($update_resources->execute())
+		{	
+			return true;									
+		}
+		else
+		{
+			return false;
+		}
+	}
+	#############################################################################################
+	# GENERATE RESOURCE																			#
+	#																							#
+	#############################################################################################
+	public function generate_resource($player_id,$facility){
+		global $db_prefix,$facility_shipyard_parts,$facility_research_points,$facility_hydroponics_food,$facility_solarplant_energy,$facility_mining_ore;
+		$generating_stuff = $this->connect->query("SELECT * FROM ".$db_prefix."planets WHERE owner=".$player_id." AND ".$facility."='Y'");
+		$generating_stuff->execute();
+		$count = $generating_stuff->rowCount();
+			if($facility == "facility_shipyard")
+			{
+				$count = ($count * $facility_shipyard_parts)+$facility_shipyard_parts;
+				$empire_resource = "empire_parts";
+			}
+			else if($facility == "facility_research")
+			{
+				$count = ($count * $facility_research_points)+$facility_research_points;
+				$empire_resource = "empire_research";
+			}
+			else if($facility == "facility_hydroponics")
+			{
+				$count = ($count * $facility_hydroponics_food)+$facility_hydroponics_food;
+				$empire_resource = "empire_food";
+			}
+			else if($facility == "facility_solarplant")
+			{
+				$count = ($count * $facility_solarplant_energy)+$facility_solarplant_energy;
+				$empire_resource = "empire_energy";
+			}
+			else if($facility == "facility_bank")
+			{
+				$count = ($count * $facility_mining_ore)+$facility_mining_ore;
+				$empire_resource = "empire_ores";
+			}
+			
+			if($this->update_resources($player_id,$empire_resource,$count))
+			{	
+				return true;									
+			}
+			else
+			{
+				return false;
+			}
+		
+	}
+	#############################################################################################
+	# SCHEDULE EMPIRE																			#
+	#																							#
+	#############################################################################################
+	public function schedule_empire(){
+		global $db_prefix;
+		$result = $this->connect->query("SELECT user_id FROM ".$db_prefix."account");
+		$result = $result->fetchAll(PDO::FETCH_ASSOC);
+		$total = 0;
+		if($result)
+		{
+			foreach ($result as $row)
+			{
+				if($this->generate_resource($row['user_id'],"facility_shipyard"))
+				{}
+				if($this->generate_resource($row['user_id'],"facility_research"))
+				{}
+				if($this->generate_resource($row['user_id'],"facility_hydroponics"))
+				{}
+				if($this->generate_resource($row['user_id'],"facility_solarplant"))
+				{}
+				if($this->generate_resource($row['user_id'],"facility_bank"))
+				{}
+				
+			}
+		}
+	}
+	
 }
 ?>

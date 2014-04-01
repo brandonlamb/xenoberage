@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -23,7 +23,6 @@ include "config/config.php";
 load_languages($db, $lang, array('common', 'global_includes'), $langvars, $db_logging);
 
 updatecookie();
-
 if (checklogin())
 {
     die();
@@ -35,7 +34,7 @@ include "header.php";
 $stylefontsize = "12Pt";
 $picsperrow = 7;
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id='$user_ship_id'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
@@ -46,7 +45,7 @@ if ($playerinfo['cleared_defences'] > ' ')
     die();
 }
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id='$playerinfo[sector]'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id='".$playerinfo[sector]."'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $sectorinfo = $res->fields;
 
@@ -62,12 +61,12 @@ if ($playerinfo['on_planet'] == "Y")
     }
     else
     {
-        $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
+        $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE ship_id=".$playerinfo[ship_id]."");
         echo "<br>" . $l->get('l_nonexistant_pl') . "<br><br>";
     }
 }
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}links WHERE link_start='$playerinfo[sector]' ORDER BY link_dest ASC");
+$res = $db->Execute("SELECT * FROM {$db->prefix}links WHERE link_start='".$playerinfo[sector]."' ORDER BY link_dest ASC");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
 $i = 0;
@@ -82,7 +81,7 @@ if ($res != false)
 }
 $num_links = $i;
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE sector_id='$playerinfo[sector]'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE sector_id='".$playerinfo[sector]."'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
 $i = 0;
@@ -97,7 +96,7 @@ if ($res != false)
 }
 $num_planets = $i;
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}sector_defence,{$db->prefix}ships WHERE {$db->prefix}sector_defence.sector_id='$playerinfo[sector]'
+$res = $db->Execute("SELECT * FROM {$db->prefix}sector_defence,{$db->prefix}ships WHERE {$db->prefix}sector_defence.sector_id='".$playerinfo[sector]."'
                                                     AND {$db->prefix}ships.ship_id = {$db->prefix}sector_defence.ship_id ");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
@@ -170,15 +169,18 @@ Start of left menu
 ######################
 
 */
+
 ?>
 <div class="tablecell menu">
 	<div class="pad">
         <h5 class="left-menu-counts-h5">Your Character</h5>
-        	<div class="left-menu-counts">Location<br /><b>Sector <? echo $playerinfo['sector']; ?></b></div>
-            <div class="left-menu-counts">Turns Available<br /><b><? echo $ply_turns; ?></b></div>
-            <div class="left-menu-counts">Turns Used<br /><b><? echo $ply_turnsused; ?></b></div>
-            <div class="left-menu-counts">Score<br /><b><? echo $ply_score; ?></b></div>
-            <div class="left-menu-counts">Credits<br /><b><? echo $ply_credits; ?></b></div>
+        <div class="left-menu-counts">Handle<br /><b><?php echo $playerinfo['character_name']; ?></b></div>
+        <div class="left-menu-counts">Current Ship<br /><b><?php echo $playerinfo['ship_name']; ?></b></div>
+        	<div class="left-menu-counts">Location<br /><b>Sector <?php echo $playerinfo['sector']; ?></b></div>
+            <div class="left-menu-counts">Turns Available<br /><b><?php echo $ply_turns; ?></b></div>
+            <div class="left-menu-counts">Turns Used<br /><b><?php echo $ply_turnsused; ?></b></div>
+            <div class="left-menu-counts">Score<br /><b><?php echo $ply_score; ?></b></div>
+            <div class="left-menu-counts">Credits<br /><b><?php echo $ply_credits; ?></b></div>
         <div class="left-divider"></div>
         <h5 class="left-menu-counts-h5">Manage Account</h5>
 			<div style='padding-left:4px; text-align:left;'><a href='device.php'>Devices</a></div>
@@ -222,9 +224,8 @@ Start of left menu
 			$num_traderoutes++;
 			$query->MoveNext();
 		}
-		
 		// Sector Defense Trade route query - this is still under developement
-		$query = $db->Execute("SELECT * FROM {$db->prefix}traderoutes WHERE source_type='D' AND source_id=$playerinfo[sector] AND owner=$playerinfo[ship_id] ORDER BY dest_id ASC");
+		$query = $db->Execute("SELECT * FROM {$db->prefix}traderoutes WHERE source_type='D' AND source_id=".$playerinfo[sector]." AND owner=".$playerinfo[ship_id]." ORDER BY dest_id ASC");
 		db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
 		while (!$query->EOF)
 		{
@@ -235,7 +236,7 @@ Start of left menu
 		}
 		
 		// Personal planet traderoute type query
-		$query = $db->Execute("SELECT * FROM {$db->prefix}planets, {$db->prefix}traderoutes WHERE source_type='L' AND source_id={$db->prefix}planets.planet_id AND {$db->prefix}planets.sector_id=$playerinfo[sector] AND {$db->prefix}traderoutes.owner=$playerinfo[ship_id]");
+		$query = $db->Execute("SELECT * FROM {$db->prefix}planets, {$db->prefix}traderoutes WHERE source_type='L' AND source_id={$db->prefix}planets.planet_id AND {$db->prefix}planets.sector_id=".$playerinfo[sector]." AND {$db->prefix}traderoutes.owner=".$playerinfo[ship_id]."");
 		db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
 		while (!$query->EOF)
 		{
@@ -246,7 +247,7 @@ Start of left menu
 		}
 		
 		// Team planet traderoute type query
-		$query = $db->Execute("SELECT * FROM {$db->prefix}planets, {$db->prefix}traderoutes WHERE source_type='C' AND source_id={$db->prefix}planets.planet_id AND {$db->prefix}planets.sector_id=$playerinfo[sector] AND {$db->prefix}traderoutes.owner=$playerinfo[ship_id]");
+		$query = $db->Execute("SELECT * FROM {$db->prefix}planets, {$db->prefix}traderoutes WHERE source_type='C' AND source_id={$db->prefix}planets.planet_id AND {$db->prefix}planets.sector_id=".$playerinfo[sector]." AND {$db->prefix}traderoutes.owner=".$playerinfo[ship_id]."");
 		db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
 		while (!$query->EOF)
 		{
@@ -255,12 +256,14 @@ Start of left menu
 			$num_traderoutes++;
 			$query->MoveNext();
 		}
+		
 		if ($num_traderoutes == 0)
 		{
 			echo "  <div class='left-trade-route'><a class='dis'>&nbsp;{$l->get('l_none')} &nbsp;</a></div>";
 		}
 		else
 		{
+			
 			$i=0;
 			while ($i<$num_traderoutes)
 			{
@@ -364,6 +367,7 @@ if($sectorinfo['port_type']!="none")
 {
 	echo "<div class=\"port-background\">";
 }
+
 ?>
 <div class="sector-information sector-information-bar">            	
 <?
@@ -558,8 +562,8 @@ if ($playerinfo['sector'] != 0)
     $sql  = null;
     $sql .= "SELECT {$db->prefix}ships.*, {$db->prefix}teams.team_name, {$db->prefix}teams.id ";
     $sql .= "FROM {$db->prefix}ships LEFT OUTER JOIN {$db->prefix}teams ON {$db->prefix}ships.team = {$db->prefix}teams.id ";
-    $sql .= "WHERE {$db->prefix}ships.ship_id<>$playerinfo[ship_id] AND {$db->prefix}ships.sector=$playerinfo[sector] AND {$db->prefix}ships.on_planet='N' ";
-#    $sql .= "WHERE {$db->prefix}ships.sector=$playerinfo[sector] AND {$db->prefix}ships.on_planet='N' ";
+    $sql .= "WHERE {$db->prefix}ships.ship_id<>".$playerinfo[ship_id]." AND {$db->prefix}ships.sector=".$playerinfo[sector]." AND {$db->prefix}ships.on_planet='N' ";
+#    $sql .= "WHERE {$db->prefix}ships.sector=".$playerinfo[sector]." AND {$db->prefix}ships.on_planet='N' ";
     $sql .= "ORDER BY RAND();";
     $result4 = $db->Execute($sql);
     db_op_result ($db, $result4, __LINE__, __FILE__, $db_logging);

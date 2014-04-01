@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -25,37 +25,59 @@ if (preg_match("/checklogin.php/i", $_SERVER['PHP_SELF'])) {
 function checklogin ()
 {
     $flag = 0;
-
-    global $username, $password, $db, $l, $user_ship_id;
-
-    $result1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=? LIMIT 1", array($username));
+	$shared_function = new shared();
+    global $username, $password, $db, $l, $user_ship_id, $user_cookie_ip, $user_cookie_host, $user_cookie_agent, $lang;
+	
+    $result1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=? LIMIT 1", array($user_ship_id));
     db_op_result ($db, $result1, __LINE__, __FILE__);
     $playerinfo = $result1->fields;
-
     // Check the cookie to see if username/password are empty - check password against database
-    if ($username == "" or $password == "" or $password != $playerinfo['password'])
-    {
+	//needs changing to check session ID inside cookie matches session ID on server DB, if not force user to log in again!
+
+	
+	/*Check user browser and cookie match*/
+	$shared_function = new shared();
+	$ip_array = $shared_function->sortIP();
+	$user_ip_address = $ip_array[0];
+	$user_agent = $_SERVER['HTTP_USER_AGENT'];
+	$user_host = gethostbyaddr($_SERVER['REMOTE_ADDR']);
+	if ($username == "" or $user_ship_id == "" or $password == "")
+	{
         $title = $l->get('l_error');
         include "header.php";
         echo str_replace("[here]", "<a href='index.php'>" . $l->get('l_here') . "</a>", $l->get('l_global_needlogin'));
         include "footer.php";
         $flag = 1;
-    }
-
-    if ($playerinfo)
-    {
-        $ip = $_SERVER['REMOTE_ADDR'];
-        $stamp = date("Y-m-d H:i:s");
-        $timestamp['now']  = (int)strtotime ($stamp);
-        $timestamp['last'] = (int)strtotime ($playerinfo['last_login']);
-
-        // Update the players last_login ever 60 seconds to cut back SQL Queries.
-        if($timestamp['now'] >= ($timestamp['last'] +60))
-        {
-            $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array($stamp, $ip, $playerinfo['ship_id']));
-        }
-    }
-
+	}
+	else
+	{
+		/*check computers match*/
+		if(($user_cookie_ip==$user_ip_address) && ($user_cookie_host==$user_host) && ($user_cookie_agent==$user_agent))
+		{
+			if ($playerinfo)
+			{
+				$ip = $_SERVER['REMOTE_ADDR'];
+				$stamp = date("Y-m-d H:i:s");
+				$timestamp['now']  = (int)strtotime ($stamp);
+				$timestamp['last'] = (int)strtotime ($playerinfo['last_login']);
+		
+				// Update the players last_login ever 60 seconds to cut back SQL Queries.
+				if($timestamp['now'] >= ($timestamp['last'] +60))
+				{
+					$update = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array($stamp, $ip, $playerinfo['ship_id']));
+				}
+			}
+		}
+		else
+		{
+			$title = $l->get('l_error');
+			include "header.php";
+			echo str_replace("[here]", "<a href='index.php'>" . $l->get('l_here') . "</a>", $l->get('l_global_needlogin'));
+			include "footer.php";
+			$flag = 1;
+		}
+	}
+/*
     // Check for destroyed ship
     if ($playerinfo['ship_destroyed'] == "Y")
     {
@@ -76,7 +98,7 @@ function checklogin ()
             $flag = 1;
         }
     }
-
+*/
     global $server_closed;
     if ($server_closed && $flag == 0)
     {

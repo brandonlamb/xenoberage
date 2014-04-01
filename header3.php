@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -18,7 +18,7 @@
 // File: header.php
 
 /*
-Load the website class auto loader into the 
+header for the logging page. code in here seems to break code elsewhere in the site.
 */
 require_once($_SERVER['DOCUMENT_ROOT'].'/classes/auto.php');
 include "config/config.php";
@@ -26,10 +26,6 @@ if (checklogin())
 {
     die();
 }
-
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
-$playerinfo = $res->fields;
 
 header("Content-type: text/html; charset=utf-8");
 header("X-UA-Compatible: IE=Edge, chrome=1");
@@ -44,13 +40,8 @@ if (!isset($body_class))
 $log_manager = new manage_log();
 
 $default_logs_show_per_page = 20;
-$total_records = $log_manager->count_log_total('ar_player_logs',$playerinfo['ship_id']);
+$total_records = $log_manager->count_log_total($db_prefix.'player_logs',$user_ship_id);
 $total_groups = ceil($total_records/$default_logs_show_per_page);
-
-
-
-$signame = player_insignia_name ($db, $username);
-$user_title = "{$signame} <span class='ar-user-handle'>{$playerinfo['character_name']}</span>{$l->get('l_aboard')} <span class='ar-user-shipname'><a href='report.php' target='_self'>{$playerinfo['ship_name']}</a></span>";
 
 ?>
 <!DOCTYPE html>
@@ -125,6 +116,7 @@ $user_title = "{$signame} <span class='ar-user-handle'>{$playerinfo['character_n
                 </script>
 </head>
 <body>
+
 	<div class="table-header"> 
 		<div class="tablerow" id="header-fix">
         	<!--<div class="alienrage-logo-large"></div>-->
@@ -137,9 +129,6 @@ $user_title = "{$signame} <span class='ar-user-handle'>{$playerinfo['character_n
 	<div class="table-navigator"> 
 		<div class="tablerow"> 
             <div class="tableNavigation user-information-bar ar-player-header">
-               <?
-			   echo $user_title;
-			   ?>
             </div>
 		</div>
 	</div>

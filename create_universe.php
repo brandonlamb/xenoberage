@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -855,6 +855,9 @@ Table_Footer("Completed successfully.");
 
       $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_thegovernor, 0, 'sched_thegovernor.php', NULL,unix_timestamp(now()))");
     Table_Row("The Governor will run every $sched_thegovernor minutes.","Failed","Inserted");
+	
+      $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_empire, 0, 'sched_empire.php', NULL,unix_timestamp(now()))");
+    Table_Row("Empire will be generated every $sched_empire minutes.","Failed","Inserted");
 
       if ($bnt_ls===true)
       {
@@ -872,7 +875,7 @@ Table_Footer("Completed successfully.");
     Table_Row("Inserting Admins ibank Information","Failed","Inserted");
 
       $stamp=date("Y-m-d H:i:s");
-      $db->Execute("INSERT INTO {$db->prefix}ships VALUES(NULL,'Game Admin\'s ship','N','Game Admin','$adminpass','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armor,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,0,$start_turns,'N',0,1,0,0,'N','N',0,0, '$stamp','0000-00-00 00:00:00','0000-00-00 00:00:00',0,0,0,0,0,'1.1.1.1',0,0,0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'N')");
+      $db->Execute("INSERT INTO {$db->prefix}ships VALUES(NULL,'Game Admin\'s ship','N','Game Admin','$adminpass','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armor,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,0,$start_turns,'N',0,1,0,0,'N','N',0,0, '$stamp','0000-00-00 00:00:00','0000-00-00 00:00:00',0,0,0,0,0,0,0,'1.1.1.1',0,0,0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'N')");
 
     Table_1Col("Admins login Information:<br>Username: '$admin_mail'<br>Password: '$adminpass'");
     Table_Row("Inserting Admins Ship Information","Failed","Inserted");

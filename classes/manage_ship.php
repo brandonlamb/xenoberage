@@ -133,6 +133,7 @@ class manage_ship {
 		$tables_to_lock_array = array('xenobe','sector_defence','ships','universe','bounty','planets','news','movement_log','logs','ibank_accounts','languages','zones','player_logs','security_logs');
 		if($sql_manager->lock_table($tables_to_lock_array))
 		{
+			
 			$victim_id = $this->stripnum($victim_id);
 			$attacker_id = $this->stripnum($attacker_id);
 			/* Get Player Data */
@@ -181,6 +182,7 @@ class manage_ship {
 			}
 			else
 			{
+				
 				$manage_log->security_log($attacker_data['ship_id'],28,$attacker_data['ship_id'],$target_data['ship_id']);
 					/* WE CAN ATTACK ... NO GOING BACK NOW JIM!!!*/
 				if (preg_match("/(\@xenobe)$/",$target_data['email']) === 0 ) {

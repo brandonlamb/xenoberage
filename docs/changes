@@ -1,0 +1,1026 @@
+TheKabal (05 August 2012)
+--------------------------------------
+Migrated newplayer guide and faq to PHP, fixed html, fixed CSS for them, changed all links to point to their new locations
+Bumped version number for release
+Removed dev file before release
+
+TheMightyDude (05 August 2012)
+--------------------------------------
+Fixed Notice: Undefined index: pore, porganics, pgoods, penergy, pfighters and ptorp in planet.php
+
+TheMightyDude (03 August 2012)
+--------------------------------------
+Fixed bug in news.php where some dates wasn't working.
+Fixed Notice: Use of undefined constant ship_name - assumed 'ship_name' in combat.php
+Fixed Notice: Use of undefined constant ship_id - assumed 'ship_id' in combat.php
+Fixed Notice: Undefined variable: l_igb_errnobase in igb.php
+Fixed Notice: Undefined variable: op in mines.php
+Fixed Notice: Use of undefined constant corp - assumed 'corp' in planet_report.php
+
+TheMightyDude (02 August 2012)
+--------------------------------------
+Fixed Notice: Undefined variable: l_igb_invalidamount in igb.php
+Fixed missing gaps in the news headline text.
+
+TheMightyDude (31 July 2012)
+--------------------------------------
+Fixed bug in bounty.php causing a HTTP 500 Internal Server Error when viewed.
+
+TheMightyDude (30 July 2012)
+--------------------------------------
+Fixed Notice: Use of undefined constant creator - assumed 'creator' in teams.php
+Fixed Notice: Undefined variable: l_planet_noscan in attack.php
+Fixed GenScore due to error in the code (my bad)
+
+TheKabal (29 July 2012)
+--------------------------------------
+Bumped version for release
+Moved script to external file, and moved the load position for it to footer instead of in the header (improves page render speed in most browsers)
+Changed $lang, $langsh, and other related language variables to be just $lang
+Index now adds $lang get variable to links, so that a non-logged in user that chooses a language will get the language they chose until they login
+Moved faq from docs to main game directory, change from html to php so that it will be able to offer different link backs (to index or to main)
+Moved faq css out to main.css
+Recoded the links for new player, rankings, faq, settings, and news so they will respect the language choice from the index page
+Added the "forgot password" text into language files with translations
+Added correct code for removing session / truly logging out player
+
+TheMightyDude (29 July 2012)
+--------------------------------------
+Fixed Notice: Undefined variable: _cmb_hehasnofighterleft in combat.php
+Fixed Notice: Undefined variable: l_special_port in galaxy.php
+Fixed Notice: Use of undefined constant time - assumed 'time' in igb.php
+Fixed Notice: Use of undefined constant character_name - assumed 'character_name' in igb.php
+Fixed Notice: Use of undefined constant balance - assumed 'balance' in igb.php
+Fixed Notice: Undefined variable: num_links in lrscan.php
+Fixed Notice: Undefined variable: calledfrom in sector_fighters.php
+Fixed Notice: Undefined variable: l_pr_clicktosort in team_planet.php
+Fixed Notice: Undefined variable: l_sector in team_planets.php
+Fixed Notice: Undefined variable: l_base in team_planets.php
+Fixed Notice: Undefined variable: l_selling in team_planets.php
+Fixed Notice: Undefined variable: l_pr_totals in team_planets.php
+Fixed some issues in the language files due to a bug in my Language Validator App.
+Fixed reverted one of my changes due to a clash with another language variable name.
+Fixed issue in schema where the language value size was too small and was cutting off the text.
+Fixed issue where we no longer have or use login.php, some files still refer to login.php which needs to be resolved.
+Fixed Notice: Undefined variable: db_logging in fader.php
+Fixed the incorrect end of row sector value (was 1 extra) in galaxy.php
+
+TheMightyDude (27 July 2012)
+--------------------------------------
+Cleaned up all the language files and removed redundant language variables.
+
+TheKabal (25 July 2012)
+--------------------------------------
+All (function) files in includes/ now have correct indention, use the language object, and bind variables for SQL calls.
+
+TheMightyDude (25 July 2012)
+--------------------------------------
+Fixed Notice: Undefined variable: level_factor in combat.php
+Fixed Notice: Undefined variable: torp_dmg_rate in combat.php
+Fixed Notice: Undefined variable: rating_combat_factor in combat.php
+Fixed Notice: Undefined variable: upgrade_factor in combat.php
+Fixed Notice: Undefined variable: upgrade_cost in combat.php
+Fixed Notice: Use of undefined constant dev_escapepod - assumed 'dev_escapepod' in combat.php
+Fixed Notice: Use of undefined constant ship_id - assumed 'ship_id' in combat.php
+Fixed Notice: Undefined variable: armor_lost in combat.php
+Fixed Notice: Undefined variable: fighters_lost in combat.php
+Fixed Notice: Undefined index: winers should be $winer in calc_ownership.php
+Fixed Notice: Undefined variable: l_youcan should be l_md_youcan in modify_defences.php
+Fixed Notice: Use of undefined constant beams - assumed 'beams' in modify_defences.php
+Fixed Notice: Use of undefined constant ship_energy - assumed 'ship_energy' in modify_defences.php
+Fixed Warning:include_once(includes/sector_fighters.php): failed to open stream: No such file or directory in modify_defences.php
+Fixed Notice: Undefined variable: mine_hullsize in traderoute.php
+Removed two lines of language log lines that should of been there (not used) in attack.php
+Fixed Incorrect language variable was $l_att_ysal2 should be $l_att_ysalv2 in attack.php
+Fixed Incorrect language variable was $l_cmb_attackershields, $l_cmb_attackertorps, $l_cmb_attackerarmor and $l_cmb_attackertorpdamage in combat.php
+Fixed Incorrect language variable was $l_igb_ctransferred should be $l_igb_ctransferredfrom in igb.php
+Fixed Incorrect language variable was $l_torpedoes should be $l_torps like the rest of the files in planet2.php
+Fixed renamed a few language vars to be consistant in traderoute.php
+Fixed missed 2 non consistent language vars in traderoute.php
+
+TheMightyDude (24 July 2012)
+--------------------------------------
+Fixed Notice: Undefined variable: mine_hullsize in planet_report_ce.php
+Fixed Notice: Use of undefined constant owner - assumed 'owner' in sched_news.php
+Fixed Missing argument 2 for defence_vs_defence() was missing first argument of $db
+Fixed Notice: Undefined variable: organics_buy in traderoute.php
+
+TheKabal (24 July 2012)
+--------------------------------------
+Set db_logging to be a property of $db ($db->logging), reducing the need to pass that value to functions
+
+TheKabal (23 July 2012)
+--------------------------------------
+Make SQL keywords consistently uppercase
+
+TheMightyDude (23 July 2012)
+--------------------------------------
+Fixed Notice: Use of undefined constant zone_id - assumed 'zone_id' in admin.php
+Fixed Notice: Use of undefined constant port_type - assumed 'port_type' in admin.php
+Fixed Notice: Use of undefined constant name - assumed 'name' in admin.php
+Fixed some cleanups of '?' to ? (cannot have single quotes around ?)
+Fixed Notice:  Undefined variable: totalmines in check_mines.php
+Fixed Notice: Use of undefined constant name - assumed 'name' in igb.php
+Fixed Notice: Use of undefined constant ship_id - assumed 'ship_id' in igb.php
+Fixed Notice: Use of undefined constant turns_used - assumed 'turns_used' in igb.php
+Fixed Notice: Use of undefined constant balance - assumed 'balance' in igb.php
+Fixed Notice:  Object of class ADORecordSet_mysqlt could not be converted to int in explode_mines.php
+Fixed undefined indexes and offsets for the logs.
+Fixed correct background image for newplayer.html
+Fixed Notice: Undefined variable: l_holds in planet2.php
+Fixed loads of Undefined variables and Undefined indexes in port2.php if no port.php post vars are passes.
+Fixed Use of undefined constant count - assumed 'count' in warpedit2.php
+Fixed Object of class ADORecordSet_mysqlt could not be converted to int in warpedit2.php
+Fixed loads of Use of undefined constant link_dest - assumed 'link_dest' in warpedit2.php
+Fixed Undefined variable: flag and flag2 in warpedit2.php
+Fixed Use of undefined constant sector - assumed 'sector' in warpedit2.php
+Fixed Undefined variable: flag in warpedit3.php
+Fixed Undefined variable: bothway in warpedit3.php
+Fixed Notice: Undefined variable: dbtables in check_mines.php
+Fixed loads of Notice: Undefined variable: db_logging in combat.php
+Fixed Notice: Use of undefined constant ship_fighters - assumed 'ship_fighters' in combat.php
+Fixed Notice: Use of undefined constant armor_pts - assumed 'armor_pts' in combat.php
+Fixed Notice: Undefined variable: l_destroyedyourarmor in combat.php
+Fixed Notice: Undefined variable: l_planetarybeams2 in combat.php
+Fixed Notice: Use of undefined constant fighters - assumed 'fighters' in combat.php
+Fixed Notice: Undefined variable: update7a in combat.php
+Fixed Notice: Undefined variable: upgrade_factor in combat.php
+Fixed Notice: Undefined variable: upgrade_cost in combat.php
+Fixed Notice: Undefined variable: db_logging in igb.php
+Fixed Notice: Undefined variable: l_unnamed in planet_report_ce.php
+Fixed Notice: Undefined variable: l_rs_noturns in planet_report_ce.php
+Fixed Notice: Undefined variable: l_rs_noturns in planet_report_ce.php
+Fixed Notice: Undefined variable: dest in igb.php 
+Fixed Notice: Use of undefined constant name - assumed 'name' in igb.php
+Fixed Notice: Undefined offset: 2 in log.php 
+Fixed Notice: Undefined index: port_type in traderoute.php
+Fixed Notice: Use of undefined constant torp_launchers - assumed 'torp_launchers' in igb.php
+Fixed some issues in zoneedit.php
+
+TheMightyDude (22 July 2012)
+--------------------------------------
+Fixed loads of bugs, too many to write down.
+
+TheKabal (21 July 2012)
+--------------------------------------
+igb_transfers was incorrectly set to use double as the data type. This gives inaccurate results, and should actually match the data type of the transfer (bigint).
+For consistency, change all if statements from <> to !=
+The constant "null" is lowercase in all non-sql cases
+Undefined variable: l_unnamed
+
+TheMightyDude (21 July 2012)
+--------------------------------------
+Fixed Notice:  Undefined index: team in teams.php
+Fixed Notice:  Undefined variable: creator in teams.php
+Fixed Notice:  Undefined variable: db_logging in defence_vs_defence.php
+Fixed Notice:  Object of class ADORecordSet_mysqlt could not be converted to int in defence_vs_defence.php
+Fixed Notice:  Undefined variable: db_logging in defence_vs_defence.php
+Fixed Notice:  Object of class ADORecordSet_mysqlt could not be converted to int in kick_off_planet.php
+Fixed Notice:  Use of undefined constant team - assumed 'team' in planet.php
+
+TheMightyDude (20 July 2012)
+--------------------------------------
+Fixed Notice:  Use of undefined constant quantity - assumed 'quantity' and energy_available - assumed 'energy_available' in sched_degrade.php
+Fixed Notice:  Use of undefined constant ship_id - assumed 'ship_id' in sched_degrade.php
+Fixed Notice:  Undefined variable: name in mailto2.php
+Fixed Notice:  Use of undefined constant ship_id - assumed 'ship_id' in mailto2.php
+Fixed Notice:  Undefined variable: l_lssd in port2.php
+Fixed Notice:  Undefined variable: db_logging in lrscan.php also cleanup.
+Fixed some more issues in traderoute (SIGH)
+Fixed Notice:  Use of undefined constant dest_id - assumed 'dest_id' and undefined constant name - assumed 'name' in main.php
+Fixed Parse error:  syntax error, unexpected T_VARIABLE in planet_report_ce.php
+Fixed Notice:  Undefined variable: db_logging in planet_report_ce.php
+Fixed Notice:  Use of undefined constant corp - assumed 'corp' in planet_report.php
+Fixed Genesis bug that wouldn't allow you to create more than 1 planet in the same sector.
+Fixed exploit where a player could scan or attack a ssip without clicking on them first, multi refresh scan exploit.
+Cleaned up rsmove.php
+Fixed Notice:  Undefined variable: editroute in traderoute.php
+Fixed Notice:  Undefined variable: title in header.php (intermittent)
+Fixed Notice:  Undefined variable: targetship, l_by_fedbounty2, l_aboard, l_att_andused in attack.php
+Fixed Notice:  Undefined variable: langsh, l_killheadline, l_news_killed in db_kill_player.php
+Fixed readmail.php was displaying \' instead of just ' (single quote)
+Fixed Notice:  Use of undefined constant name - assumed 'name' in main.php
+Fixed Notice:  Undefined variable: l_pr_clicktosort, l_sector, l_qty, l_n_a, l_md_toll in defence_report.php
+Fixed loads of errors in check_fighters.php, modify_defences.php, sector_fighters.php, destroy_fighters.php, message_defence_owner.php
+Fixed incorect log date being displayed (display 1 month behind).
+Fixed the correct LOCK TABLES was causing some Invalid SQL logs in file attack.php
+Rankings Page now only display alive ships that have used 1 or more turns.
+
+TheMightyDude (19 July 2012)
+--------------------------------------
+Indented the traderoute.php file.
+Fixed most if not all Notice: Use of undefined constant source_type - assumed 'source_type' messages.
+Fixed Blank White screen when logged in and server is closed.
+Once again Fixed invalid character in header.php and Notice: Undefined variable: l_lang_attribute.
+Fixed  Notice: Use of undefined constant ship_id - assumed 'ship_id' and character_name - assumed 'character_name'
+Fixed Notice: Undefined variable: targetinfo and missing language vars.
+Fixed Notice: Use of undefined constant team, response, destination, engage in check_fighters.php
+Fixed Movment failed bug when you hit fighters.
+Fixed Notice: Use of undefined constant port_goods in traderoute.php
+Fixed location to the image folder for main.css
+Fixed most of teams.php but will finish later.
+
+TheMightyDude (18 July 2012)
+--------------------------------------
+Temp hack/fix for the player log until we have a better way to do it.
+Fixed bug in main.php, readmail.php, mailto2.php Notice: Use of undefined constant ship_id - assumed 'ship_id'
+Fixed Missing language variables when upgrading the ship at the Special Port.
+Fixed Depolying Sector Defences, added a div container with overflow so that we can scroll defences.
+Fixed Notice: Undefined index: port_shopping in port2.php
+Fixed Notice:Use of undefined constant ship_id, undefined offset 1 in check_fighters.php and check_mines.php
+
+TheKabal (18 July 2012)     
+--------------------------------------  
+Add slashes to subject before saving to database, allowing apostrohphes ("It can't work otherwise").
+Restore changes from changelog
+Fix undefined constant 'team' in planet_report.     
+Fix missing space in "You have messages waiting" alert in main  
+Fix undefined constants in includes/calc_ownership.php  
+Fix missing language string "Planet" in planet menu     
+Fix undefined variable l_toplanetmenu in planet2 when transferring to planet    
+Fix news headline to add space before "5 planets"   
+Fix goto main link in rsmove    
+Fixes for undefined constants in traderoutes with a planet
+
+TheMightyDude (17 July 2012)
+--------------------------------------
+Fixed missing 'amount' field in IGB_transfers error.
+Fixed mail.php, it now sends the email with the password.
+Fixed lanuage ini files for email needs to be \r\n and not just \n
+Fixed l_mail_topic in language ini files so that they all use [game_name]
+Removed the mailer_class.php due to its not used.
+Fixed feedback.php to use mail() and cleaned up code a bit.
+Updated perfmon.php to now require the admin password.
+Updated create_universe.php to display the importing of the languages into the same html table as the rest.
+Updated schema.php, we now only create the table if it doesn't already exist.
+Updated checklogin.php file to update the players online status, this was missing, updates ever 60 seconds.
+Updated admin.php to allow setting special ports into sectors.
+Fixed Notice: Use of undefined constant team_name - assumed 'team_name'
+Fixed genscore() when player has no planets.
+Fixed invalid character in header.php
+Fixed Notice: Use of undefined constant amount - assumed 'amount' in sched_news.php
+Fixed Notice: Undefined variable: db_logging in traderoute.php
+Fixed Notice: Undefined index: scooped1 and scooped2 in traderoute.php
+
+TheKabal (21 June 2012)
+--------------------------------------
+Massive lists of fixes to PHP notices
+Changes to bring all pages to a common coding style guideline level (in progress)
+Eliminated global_funcs (see global_includes instead), eliminated several functions, and moved others into individual files
+Greatly simplified the style & html for login, index, and main resulting in a single stylesheet they currently use
+Added German language to game
+
+TheKabal (3 May 2012)
+--------------------------------------
+Merged patch for teams.php from rjordan (SF Patch # 906580): revision 1450
+Changed all (confusing/inconsistent) references to Alliance(s) to Team(s) instead.
+Removed personal credits notices.
+Moved all documents (newplayer/faq) into docs directory.
+(Temporarily) removed innodb references, as they used an SQL syntax that is no longer supported (threw an error).
+
+TheMightyDude (22 May 2011)
+--------------------------------------
+[1467445] Escape Pods not working (fixed)
+Fixed at long last the Double Death Attack Bug along with part of the bounty code.
+
+TheMightyDude (27 January 2011)
+--------------------------------------
+Fixed the "Unable to connect to the database" Bug.
+I thought it was about time this bug was fixed :P
+
+TheMightyDude (13 June 2010)
+--------------------------------------
+Testing SVN Write access, Once again :P
+
+TheMightyDude (04 May 2010)
+--------------------------------------
+Small fix to the Insignia code that stops the players name from moving over when several players are at top rank.
+
+TheMightyDude (19 February 2010)
+--------------------------------------
+Testing SVN
+
+TheMightyDude (23 October 2009)
+--------------------------------------
+Testing SVN
+
+TheMightyDude (11 September 2008)
+--------------------------------------
+[2106218] The Phantom Planet Transfer Bug (fixed).
+
+TheMightyDude (15 August 2008)
+--------------------------------------
+Fixed an exploit in the traderoute code which allowed a player to transfer credits, commodities etc to any planet.
+This was used to pass credits down to a new player after self-destructing self.
+
+TheMightyDude (31 July 2008)
+--------------------------------------
+Added config var $max_upgrades_devices which set that devive upgrade max limit, by default its 55 due to the PHP/MySQL cap Limit. 
+
+TheMightyDude (07 May 2008)
+--------------------------------------
+Fixed an exploit in bounty.php where anyone can inject SQL into th bounty system to gain credits on ship.
+
+TheMightyDude (26 Apr 2008)
+--------------------------------------
+Fixed an exploit in news.php where anyone can inject SQL into startdate to display all players passwords etc.
+
+TheMightyDude (24 Apr 2008)
+--------------------------------------
+Fixed the players log when displaying Apocalypse [SPACE_PLAGUE] so it now displays the percentage.
+
+TheMightyDude (05 Apr 2008)
+--------------------------------------
+Fixed bug in planet2.php where you add a -value for colonists and it set it to 0 instead of flipping it.
+Was:
+    $transfer_colonists = -1 * $transfer_colonistst;
+Should of been:
+    $transfer_colonists = -1 * $transfer_colonists;
+
+TheMightyDude (08 Feb 2008)
+--------------------------------------
+Fixed an exploit where you can modify fields of your own planet to have very high amounts of credits, colonists ore etc. 
+
+TheMightyDude (26 Oct 2007)
+--------------------------------------
+[834641] building base doesn't check turns. (fixed)
+
+TheMightyDude (17 Aug 2007)
+--------------------------------------
+Fixed movment into non valid extra sectors.
+
+TheMightyDude (17 Aug 2007)
+--------------------------------------
+Fixed admin new2 for the $HTTP_POST_VARS issues.
+
+TheMightyDude (17 Aug 2007)
+--------------------------------------
+Fixed Collect Credits from Planets.
+This was down to using old $HTTP_POST_VARS insted of the new $_POST
+
+TheMightyDude (09 Jan 2007)
+--------------------------------------
+Fixed bug in combat.php where planetfighters was set to 0 before the calculation.
+Seems like there was two lines causing this problem :(
+
+TheMightyDude (29 Dec 2006)
+--------------------------------------
+Fixed bug in combat.php where the planets energy wouldn't go down with the use of their beams.
+Fixed bug in combat.php where planetfighters was set to 0 before the calculation.
+
+TheMightyDude (27 Dec 2006)
+--------------------------------------
+Fixed the score bug, was genscore(...) function was using armour when it should of been armor.
+Fixed score bug which was down to genscore using an if statment resulting in some score going to 0.
+
+TheMightyDude (14 Dec 2006)
+--------------------------------------
+[1564468] Added part of Patch.
+Fixed error "error in the SQL statement (not null column corp set to null)"
+
+TheMightyDude (27 Oct 2006)
+--------------------------------------
+[1585781] Players log showing wrong date when viewing. (Fixed)
+
+TheMightyDude (22 May 2006)
+--------------------------------------
+[1493132] Extra Sector using preset.php (fixed)
+
+TheMightyDude (20 May 2006)
+--------------------------------------
+[1491795] ip detection bug (fixed)
+
+TheMightyDude (21 April 2006)
+--------------------------------------
+[1470569] Num of moves moved in traderoute not showing FIXED.
+
+TheMightyDude (20 April 2006)
+--------------------------------------
+Added all the missing Folders and the contents in them.
+Patched all in [1470442] Various Bugs (fixes included) apart from the language files.
+
+TheMightyDude (05 February 2006)
+--------------------------------------
+Patched function connectdb() so that it doesn't blank screen on Setup Info :)
+Usage connectdb(false) if error connecting display nothing.
+Usage connectdb() if error connecting display "Unable to connect to the database".
+
+Brian Gustin (02 February 2006)
+--------------------------------------
+fixed bug in traderoutes where players enter number of times to repeat in text box, and got "non existent traderoute" error-
+had to make $engage global in the function.
+
+TheMightyDude (02 February 2006)
+--------------------------------------
+Moved $release_version to the next line after $game_name in config.php to make it easier to find.
+
+Brian Gustin (18 January 2006)
+--------------------------------------
+Partially fixed the html problems in firefox - it renders better now, renders completely in I.E. on a 50X traderoute
+Fixed - removed ability to create traderoute into Sol , and also creating traderoutes into sectors you havent seen yet
+Fixed gen_score when player doesnt own a planet (it was returning NULL)
+Added additional information in attack.php combat report to aidd in future bug reporting
+Noted Log was written as a skirmish, though defender won and attacker dead, tentatively fixed
+Noted Player was killed off (dead-dead) despite having an escape pod following loss of combat when attacking
+        Unable to repeat the situation, so no longer listed as a bug
+
+Brian Gustin (17 January 2006)
+--------------------------------------
+Fixed xenobe_control.php ship insert to move ship_damage insert to *before* start_turns.
+Changed new2.php new player insert to use declared fieldnames.
+added ability to set some additional start up values such as escapepod etc (just placeholders)
+fixed new2.php to account for ship_damage column.
+moved the 0 in webmaster ship insertion to happen *before* start_turns (for ship_damage) (in C_U)
+quoted array elements in config.php (undefined constants in laguage stuff around line 193 - 197)
+Removed Content-Length from header.php
+renamed BUGLIST to KNOWN_BUGS
+commented out second declaration of PrintFlush function in create_universe.php (redundant, will remove if it doesnt break anything)
+added propset $Id: CHANGES 64 2006-02-05 02:19:26Z themightydude $ on some files, Ill eventually get em all :)
+
+The Kabal (15 January 2006)
+----------------------------------
+Assorted fixes to Create_universe and other files to improve support on mysql5 and 5.1 - Mostly moving '' calls to NULL, for strict issue
+Link in new member signup email incorrect, uses $game_domain which includes the same cookie setting - Fixed. (Thanks Crazybri)
+Updated TheMightyDude's Setup Info script
+Switched table type to innodb instead of MyISAM where possible
+Added Master Server list code
+Merged Gunslinger's initial Xenobe fixes (defaults to 0 xenobes this release - you must edit config and increase the amount to enable them)
+Fixed html compliance on index, login2
+Updated headers to versions used in Advanced (to get more testing)
+Added Spanish translation, made it available by default
+
+The Kabal (14 August 2005)
+----------------------------------
+Realized that it had been 3 years (!) since our last release, decided to spit something up so people don't think we're dead.
+Moved all non-code into /docs
+Modified copyright notice
+Added adodb as part of the download
+Added TheMightyDude's Readmail-0.1.0 script
+Added TheMightyDude's Create Universe Beta script
+Added TheMightyDude's Schema script
+Added TheMightyDude's Planet Hack patch
+Added TheMightyDude's Setup Info script
+Renamed Furangee's to Xenobe's. Trademark, copyright, natch.
+All filenames now use underscores, not dashes.
+Added Register Globals fix
+Swapped positions of Traderoutes and Warp boxes on main.
+Removed gen_id stuff - unused
+Removed techtree - unused
+Repaying loans would take your money, but not repay the loan - Fixed.
+Realspacing more than 100 turns always brings up the engage/are you sure confirmation now - Improvement.
+Logs didn't work by default without updates running(?) - Fixed.
+Average tech level didn't include sensors and cloaks - Fixed.
+Ship to ship salvage didn't work - Fixed.
+Added rtjordan's Traderoute patch (SF#859369) - Thanks! (Fixed multiple traderoute bugs)
+Added rtjordan's Genesis patch (SF#836276) - Thanks! (Fixed multiple genesis bugs)
+Sector defense bug (deploy with no loss on ship) - Fixed. (Thanks Crazybri and General)
+config_local.php renamed to db_config.php.
+
+
+SharpBlue (16 June 2002)
+---------------------------------
+Completely rewrote the IGB consolidator
+Got rid of the credits sweeper
+Fixed cookie bug for Mozilla
+
+David Rowlands (17 June 2002)
+-----------------------------
+Score was not calculating due to pow() substitution.
+It was possible to view anyones log file.
+
+The Kabal (16 June 2002)
+---------------------------------
+Make footer update ticker compatible with Mozilla. Thanks to Merlyn!
+Sourceforge bug #542401: Team co-ordinator now displays properly, not the 1st member of the team.
+Sourceforge bug #553666: Add average tech level to report, as well as players ship icon.
+Sourceforge bug #503776: Add return to supply depot link to port2.php
+Add seconds until update ticker to footer. Thanks to indiana_x!
+Fixes to the configurability of port/port2 costs, and added report of what level you upgraded to on port2.
+Sourceforge bug #563231: Global defines that were missing in combat.
+
+SharpBlue (16 June 2002)
+---------------------------------
+Optimized the database schema
+Fix for sf bug #569513 - wrong CSS colors in header.php
+Fix for sf bug #565711 - e-mails, char/ship names are now case-insensitive
+Fix for sf bug #565691 - prod % could be entered as equations
+Bug #553332 for warp links won't fix (god I love those)
+
+SharpBlue (15 June 2002)
+---------------------------------
+Optimized the planets scheduler module.
+Added time to run to the scheduler
+
+SharpBlue (14 June 2002)
+---------------------------------
+Implemented loans in the IGB.
+Cleaned up CSS for IGB.
+Optimized the IGB scheduler module.
+
+Torr (13 June 2002)
+---------------------------------
+Correct display of traderoutes on the "main" page.
+Added some foundation work for Sector defense traderoutes in main.php.
+Added enum type 'D' to the traderoutes table, more foundation work.
+Added enum trade_defs ('A','T') to the ships tabls, more foundation works.
+Removed new enum from ships table due to it breaking creating players.  Will have to modify new2.php in order to get that enum type added.
+
+The Kabal (10 June 2002)
+---------------------------------
+mypw wrap-around - thanks dave! *please check extensively - especially the IGB*
+Quick addition to ranking.php - Adds efficiency rate for each player.
+Quick fix to planet-report-CE.php. Used faulty code from another file I fixed. :) Sourceforge bug #566757
+Fader link path should be based on gamepath. Thanks MightyDude: http://forums.blacknova.net/viewtopic.php?topic=800&forum=1&11
+
+Torr (10 JUNE 2002)
+---------------------------------
+Added corp setting to planetary report system [feature request #542620]
+Added corp setting to planetary production report
+Added code to remove cheatting by setting more than 100% to planet production using the planetary production report
+Added some more checking to make sure production values are not set to a negative value
+Added player name to the team planet report [feature requesta #542620]
+
+The Kabal (8 June 2002)
+---------------------------------
+Sourceforge bug #566411: Simple fix to main.php
+Sourceforge bug #500446 and more: news forward/back links fixed, footer text no longer hard-coded.
+Put game version on settings.php, as it was a FAQ. (http://forums.blacknova.net/viewtopic.php?topic=789&forum=2&1)
+
+The Kabal (7 June 2002)
+---------------------------------
+Sourceforge bug #552750 - Combat Stats, show accurate energy used.
+Sourceforge bug #552750 - Fix l_commodities in scanning planet.
+Sourceforge bug #552193 - Fix for mailto.php - actually get a select from the dropdown. Yay.
+Sourceforge bug #558626 - Fix for login.php - actually get a select from the dropdown. Yay.
+Sourceforge bug #565233 - Fix turn usage in planet, and attack
+Sourceforge bug #542401 - Fix logging for illegal values in traderoutes.
+Sourceforge bug #497388 - Add team planets as option for traderoutes.
+
+Torr (7 June 2002)
+---------------------------------
+Added simple fix to allow corp traderoutes
+Added more extensive planetary report system
+Added time stamping to messages
+Added change to database to allow for corp traderoutes (enum dest/source type)
+Added field to messages table to allow for timestamping of messages
+Added support for time stamping to mailto2.php and readmial.php
+
+The Kabal (21 May 2002)
+---------------------------------
+Cleanup of the fader styles, names, etc.
+Added the first revision of the news fader for main.
+
+The Kabal (19 May 2002)
+---------------------------------
+Made the known space map a config.php option.
+
+The Kabal (9 May 2002)
+---------------------------------
+Additional cleanup of port's bound checking, faster, better, and more compact.
+Huge cleanup, touching lots of files, be careful of breakage: Removes *all* windows newlines from code.
+Huge revamp of port.php and port2.php, adding dropdowns, multiple-level upgrades, click-to-max, and onchange additions.
+License change to GPL
+
+The Kabal (1 May 2002)
+---------------------------------
+Really fixed the create universe script, and also made it html compliant in all output, along with schema, header, and
+footer.
+
+The Kabal (1 May 2002)
+---------------------------------
+HUGE cleanup and redesign of create universe.
+Fixed "no more than 500 goods ports ever" bug, thanks to heath@foomafia.com.
+
+Ron Harwood & David Rowlands (1 May 2002)
+-----------------------------------------
+Added known galaxy map
+Put in bug fixes and patches submitted by Dominioon
+
+The Kabal (29 April 2002)
+---------------------------------
+Added schema file with details on changes required to add lssd.
+These changes may not be correct, and should be examined closely. I beleive them to be functional however.
+Added device "Last ship seen in sector" device. Purchase at special port. Accessible in device menu.
+Automatically adds functionality to both scan types. Automatically ignores your presence in sectors
+when reporting. Beginning cost: 1 mil. Future functionality: add timestamp/aging so it is only visible
+for three days.
+Minor fixes for HTML glitches in main.php to correct the results of "Fighters in sector".
+
+Version 0.36 Released 29 April 2002
+-----------------------------------
+
+David Rowlands (29 April 2002)
+------------------------------
+Documentation updates.
+Traderoutes now dispay planets in sector order.
+
+David Rowlands (26 April 2002)
+------------------------------
+Added who's online display based on code and suggestions from dragonmageus, loskutak
+and the mightydude.
+
+
+David Rowlands (25 April 2002)
+------------------------------
+Added Timeraiders patch to allow teams to deploy beacons etc.
+Added lladnar's patch to gather credits from planets.
+
+David Rowlands (14 April 2002)
+------------------------------
+Score now includes IGB balances including loans
+The "You have not completed your last move" bug should now be fixed
+Added code from Ron to stop people putting HTML etc in messages (bugs 542541 and 543386)
+Bounty system will no longer pay out on Federation bounties
+You now get towed from sectors if your average tech level is greater than max hull size
+Added code to limit credits on a planet without a base to a configurable amount.
+Fixed starvation log message - was logging fractional people (bug 536132)
+Fixed incorrect message on bounties (bug 542401)
+
+David Rowlands (25 March 2002)
+---------------
+Space plague not logging percentage lost correctly.
+Decreased the chance of the apocalypse events occuring.
+Added code to give people the option to run without cron.
+Improved the efficiency of some scheduler tasks.
+Fixed infinite loop bug when renaming teams.
+Fixed mail compliance problem (was only sending \n when it should be \r\n)
+
+Ron Harwood ( 12 March 2002) -- Oh my god! He touched some code! :-)
+--------------
+Added onscreen message on how to retrieve lost password
+
+David Rowlands ( 6 March 2002)
+--------------
+Fixed corporate planet exploit.
+
+Version 0.3.5 Released (5 March 2002)
+----------------------
+
+Richard Gowen (14 Febuary 2002)
+-------------------------------
+Furangee can attack sector defenses
+Furangee can attack players on planets
+
+Nospoon (8 February 2002)
+-------------------------
+Merged Wanders new create universe script
+Fixed number of torps firing to be 10%
+Ships on planets now fire the correct amount of torps
+Fixed exploits in teams
+Genesis device can destroy planets again
+
+
+Nospoon (24 January 2002)
+-------------------------
+Added bounty System
+Added multi run traderoutes
+Added planetary apocalypse
+Update FAQ
+
+Version 0.3.1 released (5 January 2002)
+-------------
+
+SharpBlue (4 January 2002)
+---------------------------
+Finished language selection code
+Finished internationalization of all files
+Got rid of the old .php3 extension, to .php
+Added a log entry when player captures a planet
+
+Nospoon (2 January 2002)
+---------------------------
+Revised FAQ and newplayer guide, added it to CVS.
+Fixed exploit allowing players to retrieve other players defences
+
+
+SharpBlue (30 December 2001)
+---------------------------
+Finished the french translation.
+Updated the new player code to give new players the number of turns
+elapsed from the beginning of the game, capped at $max_turns.
+
+
+Nospoon (16 December 2001)
+---------------------------
+Added code to drain energy from owners and corporate planets to support
+fighters. Fixed bug that stopped players reverting corporate planets back
+to personal planets.
+
+Nospoon (15 December 2001)
+-------------------------------
+Sector fighters will degrade if there is no planet (owned or corproate)
+to support the fighters.
+
+SharpBlue (09 December 2001)
+-------------------------------
+Modified rankings generation to select only ships that aren't
+destroyed. Speeds it up by over 50% on big games.
+
+
+SharpBlue (06 December 2001)
+-------------------------------
+Log viewer admin module added.
+
+
+SharpBlue (04 December 2001)
+-------------------------------
+New log services. The logs are now kept in the database instead
+of in a file. Each event has a define in the global_funcs file,
+with an attached text string in the language files. The log.php
+file parses the log data and outputs an intelligible string.
+
+Also played with DHTML for the log interface. Works fine in IE,
+NS6 and Mozilla. DHTML is simply disabled for browsers that
+don't support it, outputting a simple table instead. Added a field
+to the ships table so that users can explicitely disable DHTML if
+they don't like it.
+
+
+SharpBlue (03 December 2001)
+-------------------------------
+Fixed the broken screen resolution cookie code. Fonts for the
+main interface are now dynamically selected, depending on the
+screen resolution. Hopefully this will make the main interface
+better for those with a resolution above 800x600. X resolution
+is stored in a cookie called screenres.
+
+
+SharpBlue (02 December 2001)
+-------------------------------
+Modified ports so you can buy more than 999,999 mine deflectors
+in a single shot.
+
+Fixed the IGB so that it displays right in Netscape 4
+
+
+SharpBlue (01 December 2001)
+-------------------------------
+Anti-cheat measures:
+ - Setting not to allow credit transfers to/from corporate planets
+ - Setting to allow for a minimum player worth for capturing planets
+ - IP ban module in the admin script
+
+Addition of a new scheduler to the game. This makes the use of
+the sysupdate.php3 file obsolete, as well as genrank.php3 and
+gen_news.php. Settings can now be set in real-time, and the
+actual system update interval does not affect any longer the game
+speed.
+
+
+SharpBlue (30 November 2001)
+-------------------------------
+Anti-cheat measures:
+ - Timestamp on transfers to control the frequency of IGB
+   transfers
+
+Invitation into an team log "blank name" bug fixed
+Trade routes now link the source port
+Fixed sector_id not sorting in planet_report.php3
+Various language fixes
+
+
+SharpBlue (29 November 2001)
+-------------------------------
+Completely new IGB system
+Anti-cheat measures :
+ - Percent of worth limit on IGB transfers
+ - Min turns allowed for IGB transfers
+
+Version 0.3.0 released (17 November 2001)
+-------------------------------
+
+SharpBlue (13 November 2001)
+-------------------------------
+Sector ownership code now completely merged in. Players or teams can now
+own sectors and define their laws. Added an option in config.php3 to set
+a minimum number of required bases in a sector before a player can claim
+ownership
+
+Planet to planet traderoutes are also now implemented, along with various
+bug fixes to the traderoute code.
+
+Nospoon (13 November 2001)
+-------------------------------
+When leaving teams, sector defences of the player will fight against
+sector defences of the old team in the same sector.
+When leaving an team, any players other than the owner on the planet will
+be ejected from the planet.
+Option to toggle corporate or personal planet is only shown when you are a
+member of an team.
+
+Nospoon (09 November 2001)
+-------------------------------
+Sector defences re-written. Players now get a warning about hostile sector
+defences before entering the sector. You can now use cloaking device to attempt
+to sneak past sector defences.
+Owners of sector defences can retrieve deployed sector defences.
+Multiple sector defences (multiple owners in the same team) allowed in each sector.
+Players can attack hostile sector defences once in a sector.
+Can now make unlimited warp links TO a sector, but not from.
+
+Richard Gowen (30 October 2001)
+-------------------------------
+Added computer controlled players as a race named Furangee.
+   . furangee_control.php allows for admin control of computer players
+   . furangee_funcs.php controls how the computer players function in the game
+   . sysupdate.php3 updated to make the computer players take thier turns
+
+Fant0m (29 October 2001 13:26)
+----------------------------
+Added :
+   . Displays of team name for Planets, Ships, mines and fighters
+   . Displays of team description in team menu
+   . Added the feature for team's leaders to edit tem's name and description
+
+SharpBlue (26 October 2001)
+----------------------------
+Score is now generated when a player logs out
+
+SharpBlue (24 October 2001)
+----------------------------
+Completely new traderoutes system.
+
+Sharpblue, cYz, Richard Gowen, Dave Rowlands (October 23 2001 )
+---------------------------------------------------------------
+Multiple planets per sector support added.
+'ALL' check boxes added to planet transfer screen.
+Sector editor added to Admin module.
+
+nospoon (7 October 2001)
+------------------------
+Schema change: Made dev_minedeflectors in ships a bigint(20)
+
+gyruss (5 October 2001)
+---------------------------
+Login cookie now uses an implicit domain/path to support finicky browsers & cookie managers. Make sure you update config_local.php3 to specify your correct domain & path.
+
+nospoon (1 October 2001)
+------------------------
+Emergency warp devices now degrade in reliability depending on hull size.
+Ships with a hull size below a certain level won't be attacked by sector defences (mines and fighters).
+Traderoutes won't engage between sectors containing hostile sector defences.
+
+gyruss (19 September 2001)
+---------------------------
+Merged username & password cookies into one userpass cookie. Will soon clean up the other cookies. BNT should only have one cookie overall.
+
+
+nospoon (16 September 2001)
+---------------------------
+Added code for reporting on sector defences. Also fixed the existing code for bases on planets. Now, the tech level of the planet defences are based on the ships tech level plus a value in the config file, if a base is present.
+
+nospoon (12 September 2001)
+---------------------------
+
+Merged in the in game messaging system by Blindcoder.
+Fixed problem with planet_owner being set to null as default.
+
+
+nospoon (11 September 2001)
+---------------------------
+
+Fixed bug #460170 - duplicate links could be created in create_universe.php3
+          #460084 - schema created with null values in key fields
+Added ability to deploy mines and sector fighters (no support for sector fighters attacking yet).
+
+
+nospoon (07 September 2001)
+---------------------------
+
+Fixed Bug in installscript which caused it to fail running the install program.
+Changed team scoring algorithm to the same method of the individual player score, so the team score is no longer the sum of the individual players scores, it is now the square root of the net worth of all team members.
+
+nospoon (06 September 2001)
+--------------------------
+
+Fixed Bug #443677 - Database connection failure in ibank.php3
+          #428322 - Unable to transfer planetary $ from IGB
+
+nospoon (05 September 2001)
+---------------------------
+Fixed bug #405750,458278 - Scores not updating or showing zero scores. File ranking.php3 being overwritten by output from genrank.php3 due to bug in install program
+
+         #433079 - Request for password protection on genrank.php3 to stop malicous users frequently calling this resource intensive process
+
+nospoon (04 September 2001)
+---------------------------
+
+Fixed bug #458278 - File open error when scanning unowned planet
+
+nospoon (03 September 2001)
+---------------------------
+
+Fixed bug #445681 - couldn't deposit or withdraw all funds from IGB
+          #448733 - incorrect parameter passed to gen_score in planet3.php3
+          #433078 - longe rang scan incorrectly displaying turns left
+
+ratt (11 July 01)
+------------------
+The ridiculous traderoute bug reared it's ugly head again...
+Should _NOW_ be fixed (No really!)
+
+Fairly 'major' change is to Ship speed ... currently, with
+an engine level of 15, travel to anywhere in a normal sized
+universe took 1 turn... making engine size fairly pointless.
+
+The new calculation method now makes real space trips take
+a bit longer until engine sizes start getting up in the
+very high 20's and beyond.
+
+This means that short real space distance trade ports and/or
+warp linked tradeports just because WAY more valuable, as
+it should be.  With the soon-to-be introduced mines, it
+will make mining valuable port combo's an important tactic.
+
+An alternate way to handle this would have been to increase
+the way distance is calculated (to the 4th power instead of
+the 2nd) ... still not sure which way would be better.
+
+Any comments on this?
+
+Changed "Trade Route" to "Realspace Trading" on the main
+menu, so people don't get confused.
+
+ratt (09 July 01)
+------------------
+Refixed the Traderoute bug.  Boy, was that a nasty one
+to track down.  It _SHOULD_ be working now - users should
+no longer be able to carrying 2x cargo capacity.
+
+Current plan is to finish off the combat code for the portions
+that are done right now.  Then to look into adding mines/fighter
+clouds, which will lead back to the combat code expansion and
+balancing.  I don't want to try to balance the combat code any
+more than it already is until the mines are in place, they will
+add quite a bit of effect to the entire combat system.  Look
+for a much more complex combat system soon, however, that will
+require users to actually balance out what type of position they
+wish to take (Offensive/devensive/sneaky/subversive).
+
+First move on this will be a modification to EWD's - currently
+they make ship to ship combat non-existant.  Current thinking
+right now is to give them a chance of firing a certain % of the
+time during each phase of combat.  This will make hanging around
+less attractive than logging out on a planet.  With the new
+corporate planet options, it will be worth while to concentrate
+your corporations ships on a single planet and defend it.
+
+ratt (08 July 01)
+------------------
+Fixed a bug in corporate planets that killed the
+original owner of a planet, even if the original
+owner wasn't on that planet.
+
+Comitted current planetary combat code to SF.
+
+This patch is rather large, and includes 3 new files:
+
+1.  CHANGES file - will help in tracking what's changed
+from patch to patch by the developers.
+
+2.  corp.php   ... this is for corporate planets.  It's
+very simple right now, but will be expanded in the future
+to include more options.
+
+3.  combat.php3  - this is the revised combat code.  It is
+NOT finished, but it works (and shares a lot of code) with
+the old combat system.  However, the big chang is the ability
+to have more than one ship on a planet, and those ships to
+defend the planet in concert.
+
+I further plan to modularize the combat code within combat.php3
+to actually handle ALL combat in the game.  Once properly
+modularized, it will allow the ability to leave fighter clouds
+in sectors and will include provisioning for mines.
+
+If you encounter any bugs in the new combat system, please let
+me know ASAP.  Preferably how to duplicate the bug.  I think I
+stamped out most of them.   I am aware that cosmetically, the
+combat system can be improved, and that's on my list of things to do.
+
+As before, if you have not created the field planet_corp in
+your BN database, you need to.  Rebanging the universe will
+do this for you, but I realize for some people, that is not
+an option.  Just duplicate the field planet_owner into
+planet_corp and you should be ok.
+
+If you were currently using the new corporate code, all your
+players should go to thier planets and toggle the corporate
+switch at least once to fix a potential bug in the previous
+code.  New captured planets should not exhibit any more problems.
+
+ratt (06 July 01)
+------------------
+Fixed a bug in traderoute.php3 that allowed you to have
+double the amount of cargo that your holds could handle.
+
+Fixed a bug in the corporate planet scheme that allowed the
+original owner unfettered access to a planet after it was
+captured if it was set to corporate when it was captured.
+
+Fixed a bug in combat.php3 that would result in
+negative fighters being left after a planetary attack,
+even if you only lost 1 fighters and had a ton of
+fighters left.
+
+

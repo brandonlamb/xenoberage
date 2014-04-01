@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -28,9 +28,17 @@ $title = $l_opt2_title;
 
 if ($newpass1 == $newpass2 && $password == $oldpass && $newpass1 != "")
 {
-	$data = array('username'=>$username, 'password'=>$newpass1,'user_id'=>$user_ship_id);
+	
+	$shared_function = new shared();
+	$ip_array = $shared_function->sortIP();
+	$user_ip_address = $ip_array[0];
+	$user_agent = $_SERVER['HTTP_USER_AGENT'];
+	$user_host = gethostbyaddr($_SERVER['REMOTE_ADDR']);
+	$cookie_session_id = md5($user_agent);
+	$data = array('username'=>$username, 'password'=>$cookie_session_id,'user_id'=>$user_ship_id,'user_ip'=>$user_ip_address,'user_host'=>$user_host,'user_agent'=>$user_agent);
 	$data=serialize($data);
 	setcookie("userID", $data, time() + (3600*24)*365, $gamepath, $gamedomain);
+	
 }
 
 if (!preg_match("/^[\w]+$/", $newlang))
@@ -66,7 +74,7 @@ elseif ($newpass1 != $newpass2)
 }
 else
 {
-    $res = $db->Execute("SELECT ship_id,password FROM {$db->prefix}ships WHERE email='$username'");
+    $res = $db->Execute("SELECT ship_id,password FROM {$db->prefix}ships WHERE ship_id='$user_ship_id'");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     $playerinfo = $res->fields;
     if ($oldpass != $playerinfo['password'])
@@ -89,7 +97,7 @@ else
 }
 
 
-$res = $db->Execute("UPDATE {$db->prefix}ships SET lang='$lang' WHERE email='$username'");
+$res = $db->Execute("UPDATE {$db->prefix}ships SET lang='$lang' WHERE ship_id='$user_ship_id'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 foreach ($avail_lang as $curlang)
 {

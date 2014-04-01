@@ -1,6 +1,6 @@
 <?php
-// Xenobe Rage Copyright (C) 2012-2013 David Dawson
-// Blacknova Traders -  Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -39,7 +39,7 @@ if (array_key_exists('PRepType', $_GET) == true) //!isset($_GET['PRepType']))
 
 
 // Get data about planets
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id='$user_ship_id'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 ?>
@@ -258,11 +258,18 @@ function standard_report ()
 			echo "</tr><tr>";
 			
 			echo "<td colspan='".$ranking_colspan_control."' class='planet-name'>Name: <span class='table_word_green'>" . $planet[$i]['name'] . "</span></td>";
-			if(base_build_check($planet, $i)=="No")
+
+			if(base_build_check($planet, $i)=="Yes")
 			{
-				$ranking_base_info = "<span class='table_word_red'>No</span> [<a href='planet_report.php?PRepType=2'>Edit >></a>]";} 
+				$ranking_base_info = "Yes! [<a href='planet_report.php?PRepType=2'>Edit >></a>]";
+			}
+			else if(base_build_check($planet, $i)=="No")
+			{
+				
+				$ranking_base_info = "<span class='table_word_red'>No</span>";
+			}
 			else { 
-				$ranking_base_info = "Yes";
+				$ranking_base_info = "<span class='table_word_red'>No</span> [".base_build_check($planet, $i)."]";
 			}
             echo "<td colspan='2'><span class='table_word_faded'>Has Base? " . $ranking_base_info . "</span></td>";
             if ($playerinfo['team'] > 0)

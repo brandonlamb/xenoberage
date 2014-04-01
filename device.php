@@ -32,7 +32,7 @@ if ( checklogin () )
     die ();
 }
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id='$user_ship_id'");
 $playerinfo = $res->fields;
 ?>
 <div class="tablecell content both-border">
@@ -53,7 +53,7 @@ echo "<tr>";
 echo "<td><a href='beacon.php'>Space Beacons</A></td><td><span class=\"table_word_white\">" . NUMBER($playerinfo['dev_beacon']) . "</span></td><td><span class=\"table_word_orange\">Manual</span></td>";
 echo "</tr>";
 echo "<tr>";
-echo "<td><a href='warpedit.php'>Warp Editors</A></td><td><span class=\"table_word_white\">" . NUMBER($playerinfo['dev_warpedit']) . "</span></td><td><span class=\"table_word_orange\">Manual</span>l</td>";
+echo "<td><a href='warpedit.php'>Warp Editors</A></td><td><span class=\"table_word_white\">" . NUMBER($playerinfo['dev_warpedit']) . "</span></td><td><span class=\"table_word_orange\">Manual</span></td>";
 echo "</tr>";
 echo "<tr>";
 echo "<td><a href='genesis.php'>Genesis Torpedoes</A></td><td><span class=\"table_word_white\">" . NUMBER($playerinfo['dev_genesis']) . "</span></td><td><span class=\"table_word_orange\">Manual</span></td>";
@@ -68,7 +68,7 @@ echo "<tr>";
 echo "<td><a href='mines.php?op=2'>Space Fighters</A></td><td><span class=\"table_word_white\">" . NUMBER($playerinfo['ship_fighters']) . "</span></td><td><span class=\"table_word_orange\">Manual</span></td>";
 echo "</tr>";
 echo "<tr>";
-echo "<td><a href='emerwarp.php'>Emergency Warp Device</A></td><td><span class=\"table_word_white\">" . NUMBER($playerinfo['dev_emerwarp']) . "</span></td><td><span class=\"table_word_orange\">Manual</span>/<span class=\"table_word_yellow\">Automatic</span></td>";
+echo "<td><a href='emerwarp.php'>Emergency Warp Device</A></td><td><span class=\"table_word_white\">" . NUMBER($playerinfo['dev_emerwarp']) . "</span></td><td><span class=\"table_word_orange\">Manual</span> / <span class=\"table_word_yellow\">Automatic</span></td>";
 echo "</tr>";
 echo "<tr>";
 echo "<td><span class=\"table_word_gold\">Escape Pod</span></td><td><span class=\"table_word_white\">" . (($playerinfo['dev_escapepod'] == 'Y') ? $l_yes : $l_no) . "</span></td><td><span class=\"table_word_yellow\">Automatic</span></td>";

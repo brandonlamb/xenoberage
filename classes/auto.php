@@ -10,7 +10,7 @@ session_start();
 function __autoload($class_name) 
 {
 	/*WARNING USING STRICT CASE-SENSATIVE*/
-	require_once '/class/'.$class_name. '.php';
+	require_once '/kunden/homepages/29/d418208802/htdocs/sites/blacknova/class/'.$class_name. '.php';
 }
 
 ?>
